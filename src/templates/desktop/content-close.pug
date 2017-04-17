@@ -1,0 +1,23 @@
+.right
+	.title #{title}
+	.title-sum 1 981 000 ₽ 
+	
+	form
+			
+		.row.row__input.row__form.row__from
+			.semi-title Откуда погасить
+			.radio
+				.radio-tab
+					input(name="from",id="schet",type="radio",checked="true").input-radio
+					label(for='schet') Со счёта
+				.radio-tab
+					input(name="from",id="card",type="radio").input-radio
+					label(for='card') С карты
+						
+		.row.row__input.row__form.row__from
+			.semi-title С какого счёта
+			select.select
+				option(selected=true) 1
+				option 2
+		.row.row__input.row__form
+			.button Пополнить

@@ -1,0 +1,16 @@
+- var title = 'Кредит наличными'
+- var parentTitle = ''
+
+include head.pug
+body.state--initial
+	.desktop
+		include desktop/header.pug
+		.wrapper
+			include desktop/left.pug
+			include desktop/right.pug
+			include desktop/content-initial.pug
+	.mobile
+		include mobile/header-main.pug
+		.wrapper
+			include mobile/content-initial.pug
+include desktop/footer.pug

@@ -1,0 +1,15 @@
+- var title = 'Закрытие кредита'
+- var parentTitle = 'Кредит наличными'
+
+include head.pug
+body.state--initial
+	.desktop
+		include desktop/header.pug
+		.wrapper
+			include desktop/left.pug
+			include desktop/right.pug
+			include desktop/content-close.pug
+	.mobile
+		include mobile/header.pug
+
+include desktop/footer.pug

@@ -1,0 +1,47 @@
+.right
+	.title #{title}
+	.title-desc Чтобы срок кредита уменьшился, досрочно погасите его на сумму ежемесячного платежа или больше.
+
+	form
+		.row.row__input.row__form
+			.semi-title На какой срок уменьшить кредит
+			.radio.radio-months
+				.radio-tab
+					input(name="months",id="month1",type="radio").input-radio
+					label(for='month1') 1 месяц
+						span.radio-tab__desc 6 253,47 ₽
+				.radio-tab
+					input(name="months",id="month2",type="radio").input-radio
+					label(for='month2') 2 месяца
+						span.radio-tab__desc 12 506,94 ₽
+				.radio-tab
+					input(name="months",id="month3",type="radio").input-radio
+					label(for='month3') 6 месяцев
+						span.radio-tab__desc 37 520,82 ₽
+				.radio-tab
+					input(name="months",id="month4",type="radio").input-radio
+					label(for='month4') 1 год
+						span.radio-tab__desc 98 520,82 ₽
+					
+			
+		.row.row__input.row__form
+			.semi-title Сумма погашения
+			input(type='text',placeholder='0').input-text
+			
+		.row.row__input.row__form.row__from
+			.semi-title Откуда погасить
+			.radio
+				.radio-tab
+					input(name="from",id="schet",type="radio",checked="true").input-radio
+					label(for='schet') Со счёта
+				.radio-tab
+					input(name="from",id="card",type="radio").input-radio
+					label(for='card') С карты
+						
+		.row.row__input.row__form.row__from
+			.semi-title С какого счёта
+			select.select
+				option(selected=true) 1
+				option 2
+		.row.row__input.row__form
+			.button Пополнить

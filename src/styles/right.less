@@ -1,0 +1,71 @@
+@import 'vars';
+
+.right {
+	margin-top: 40px;
+	width: calc(~"100% - 250px");
+}
+
+.title {
+	font-size: 36px;
+	font-weight: 900;
+	margin-bottom: 30px;
+}
+
+.title-desc {
+	font-size: 16px;
+	line-height: 24px;
+	color: @primary;
+	max-width: 420px;
+}
+
+.tabs {
+	position: relative;
+	color: @linkTabs;
+	width: 100%;
+	display: flex;
+	margin-bottom: 55px;
+
+	&__line {
+		height: 1px;
+		width: 100%;
+		bottom: -12px;
+		position: absolute;
+		background: @lineColor;
+	}
+
+	&__current {
+		height: 3px;
+		width: 90px;
+		bottom: -13px;
+		border-radius: 3px;
+		position: absolute;
+		background: @alfared;
+	}
+}
+
+.tab {
+	font-size: 18px;
+	transition: opacity @animateOut;
+
+	a {
+		color: currentColor;
+	}
+
+	& + & {
+		padding-left: 30px;
+	}
+
+	&:hover {
+		opacity: .5;
+		transition: opacity @animateIn;
+	}
+
+	&--active {
+		color: @alfared;
+		font-weight: bold;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+}

@@ -1,0 +1,51 @@
+.left {
+	width: @sidebarWidth;
+}
+
+.menu {
+	margin-top: 40px;
+
+	&__item {
+		position: relative;
+		font-size: 18px;
+		line-height: 24px;
+		color: @linkMenu;
+		transition: opacity @animateOut;
+
+		&:before {
+			content: "";
+			width: 3px;
+			height: calc(~"100% - 12px");
+			display: block;
+			position: absolute;
+			left: -15px;
+			top: 6px;
+			background: fade(@alfared, 0%);
+			border-radius: 3px;
+		}
+
+		a {
+			color: currentColor;
+			display: block;
+			padding: 7px 0;
+		}
+
+		&:hover {
+			opacity: .5;
+			transition: opacity @animateIn;
+		}
+
+		&--active {
+			color: @alfared;
+			font-weight: bold;
+
+			&:hover {
+				opacity: 1;
+			}
+
+			&:before {
+				background: fade(@alfared, 100%);
+			}
+		}
+	}
+}

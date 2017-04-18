@@ -100,7 +100,6 @@ gulp.task('js', function() {
 				filename: 'bundle.js',
 			},
 		}))
-		.pipe(uglify())
 		.pipe(gulp.dest(join(DEST, 'scripts')));
 });
 

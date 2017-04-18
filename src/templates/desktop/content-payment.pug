@@ -3,9 +3,7 @@
 	.title-desc Чтобы ежемесячный платёж уменьшился, досрочно погасите кредит на сумму 3 000 ₽ или больше.
 	
 	form
-		.row.row__input.row__form
-			.semi-title Сумма пополнения
-			input(type='text',placeholder='0').input-text
+		include ../sum.pug
 			
 		.row.row__input.row__form
 			.semi-title Новый ежемесячный платёж
@@ -14,20 +12,6 @@
 				.from-to__arrow →
 				.from-to__to 6 000,25 ₽
 			
-		.row.row__input.row__form.row__from
-			.semi-title Откуда пополнить
-			.radio
-				.radio-tab
-					input(name="from",id="schet",type="radio",checked="true").input-radio
-					label(for='schet') Со счёта
-				.radio-tab
-					input(name="from",id="card",type="radio").input-radio
-					label(for='card') С карты
-						
-		.row.row__input.row__form.row__from
-			.semi-title С какого счёта
-			select.select
-				option(selected=true) 1
-				option 2
+		include from.pug
 		.row.row__input.row__form
 			.button Пополнить

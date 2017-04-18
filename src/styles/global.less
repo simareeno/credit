@@ -5,15 +5,27 @@
 	box-sizing: border-box;
 }
 
+html {
+	position: relative!important;
+	overflow-y: visible!important;
+}
+
 body {
 	font-family: 'Roboto', sans-serif;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
-	margin-bottom: 40px;
+	overflow-x: hidden;
+	max-width: 100%;
 }
 
 a {
 	text-decoration: none;
+}
+
+
+.desktop, .mobile {
+	overflow-x: hidden;
+	padding-bottom: 100px;
 }
 
 .mobile {
@@ -95,10 +107,14 @@ a {
 	}
 
 	.button {
-		width: 420px;
+		width: @formWidth;
 		padding: 17px 0;
 		font-weight: bold;
 		font-size: 16px;
+
+		@media @mobile {
+			width: 100%;
+		}
 	}
 }
 
@@ -117,7 +133,7 @@ a {
 	font-weight: bold;
 	color: @primary;
 	letter-spacing: 1.5px;
-	margin-bottom: 16px;
+	margin-bottom: 10px;
 }
 
 .paragraph {
@@ -127,22 +143,51 @@ a {
 }
 
 .button {
-	font-size: 13px;
+	font-size: 16px;
 	background: @alfared;
 	color: white;
+	font-weight: bold;
 	text-align: center;
-	padding: 9px 0;
+	padding: 12px 0;
 	border-radius: 4px;
 	cursor: pointer;
 	user-select: none;
 }
 
 .select {
-	max-width: 420px;
+	max-width: @formWidth;
+	display: block;
+
+	@media @mobile {
+		max-width: initial;
+	}
+}
+
+.input {
+	position: relative;
+
+	&__desc {
+		position: absolute;
+		top: 4px;
+		z-index: 1;
+		-webkit-user-select: none;
+		color: fade(@primary, 90%);
+		font-size: 17px;
+		opacity: .4;
+		transition:
+			opacity .2s ease,
+			font-size .2s ease,
+			transform .2s ease;
+
+		&--active {
+			font-size: 13px;
+			opacity: 1;
+			transform: translate(0, -20px);
+		}
+	}
 }
 
 .input-text {
-	width: 270px;
 	box-shadow: 0 1px 0 #D8D8D8;
 	border: 0;
 	padding-bottom: 10px;
@@ -150,10 +195,45 @@ a {
 	font-size: 17px;
 	position: relative;
 	-webkit-appearance: none;
+	z-index: 2;
+	border-radius: 0;
+	padding-left: 0;
+}
+
+.input--sum {
+	width: 270px;
 	background-image: url(../images/rouble-input.png);
 	background-repeat: no-repeat;
 	background-size: 11px;
 	background-position: right 5px;
+
+	@media @mobile {
+		width: 100%;
+	}
+}
+
+.input--cvc {
+
+	.input-text {
+		width: 40px;
+		background: transparent;
+	}
+}
+
+.input--card {
+
+	.input-text {
+		width: 100%;
+		background: transparent;
+	}
+}
+
+.input--date {
+
+	.input-text {
+		width: 100%;
+		background: transparent;
+	}
 }
 
 input.input-radio {
@@ -162,6 +242,19 @@ input.input-radio {
 }
 
 .radio {
+
+	&__wrapper {
+		overflow-x: scroll;
+		-webkit-overflow-scrolling: touch;
+		width: 100%;
+		padding-right: 32px;
+		white-space: nowrap;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
 	&-tab {
 		display: inline-block;
 		user-select: none;
@@ -199,6 +292,7 @@ input.input-radio {
 
 .input-radio ~ label {
 	box-shadow: inset 0 0 0 1px #D8D8D8;
+	background: white;
 }
 
 .input-radio:checked ~ label {
@@ -239,5 +333,14 @@ input.input-radio {
 .wrapper {
 	.main-links:first-child {
 		margin-top: 10px;
+	}
+}
+
+.state--initial {
+	.mobile {
+
+		.wrapper {
+			margin: 0 0 0 12px;
+		}
 	}
 }

@@ -1,0 +1,30 @@
+form
+	.wrapper
+		.title-desc Чтобы срок кредита уменьшился, досрочно погасите его на сумму ежемесячного платежа или больше.
+
+	.row.row__input.row__form.row__dates
+		.semi-title На какой срок уменьшить кредит
+		.radio.radio-months
+			.radio__wrapper
+				.radio-tab
+					input(name="months-mobile",id="month1-mobile",type="radio").input-radio
+					label(for='month1-mobile') 1 месяц
+						span.radio-tab__desc 6 253,47 ₽
+				.radio-tab
+					input(name="months-mobile",id="month2-mobile",type="radio").input-radio
+					label(for='month2-mobile') 2 месяца
+						span.radio-tab__desc 12 506,94 ₽
+				.radio-tab
+					input(name="months-mobile",id="month3-mobile",type="radio").input-radio
+					label(for='month3-mobile') 6 месяцев
+						span.radio-tab__desc 37 520,82 ₽
+				.radio-tab
+					input(name="months-mobile",id="month4-mobile",type="radio").input-radio
+					label(for='month4-mobile') 1 год
+						span.radio-tab__desc 98 520,82 ₽
+					
+	.wrapper
+		include ../sum.pug
+		include from.pug
+		.row.row__input.row__form
+			.button Пополнить

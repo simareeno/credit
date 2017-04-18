@@ -2,7 +2,6 @@
 	background-color: #E6E9F0;
 	padding: 10px 18px 18px;
 	max-width: 270px;
-	max-width: 250px;
 	position: relative;
 	top: -10px;
 	border-radius: 4px;
@@ -21,10 +20,29 @@
 .row__link {
 	display: block;
 	position: relative;
-	left: 30px;
+
+	@media @mobile {
+		padding: 20px 0;
+	}
 
 	& + & {
 		margin-top: 25px;
+
+		@media @mobile {
+			// box-shadow: 0 -1px 0 fade(#0A1E32, 12%);
+			margin: 0;
+
+			&:before {
+				content: "";
+				display: block;
+				width: 100%;
+				height: 1px;
+				position: absolute;
+				top: 0px;
+				left: 36px;
+				background: fade(@primary, 12%);
+			}
+		}
 	}
 
 	.row__link-icon {
@@ -32,7 +50,6 @@
 		height: 24px;
 		background-size: cover;
 		position: absolute;
-		left: -30px;
 		margin-right: 12px;
 
 		&--clock {
@@ -44,13 +61,21 @@
 		display: inline-block;
 		font-size: 17px;
 		line-height: 23px;
+		margin-left: 36px;
 		color: @primary;
 		box-shadow: 0 1px 0 (@lineColor);
+		padding-right: 12px;
+
+		@media @mobile {
+			box-shadow: none;
+		}
 	}
 
 	&-desc {
 		font-size: 13px;
+		line-height: 18px;
 		margin-top: 10px;
+		margin-left: 36px;
 		color: fade(@primary, 70%);
 	}
 

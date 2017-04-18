@@ -2,7 +2,7 @@
 - var parentTitle = 'Кредит наличными'
 
 include head.pug
-body.state--initial
+body(theme="alfa-on-white")
 	.desktop
 		include desktop/header.pug
 		.wrapper
@@ -10,6 +10,8 @@ body.state--initial
 			include desktop/right.pug
 			include desktop/content-add.pug
 	.mobile
-		include mobile/header.pug
+		include mobile/header-add.pug
+		.wrapper
+			include mobile/content-add.pug
 
 include desktop/footer.pug

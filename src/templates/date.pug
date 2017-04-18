@@ -2,7 +2,7 @@
 - var parentTitle = 'Кредит наличными'
 
 include head.pug
-body.state--initial
+body
 	.desktop
 		include desktop/header.pug
 		.wrapper
@@ -11,4 +11,5 @@ body.state--initial
 			include desktop/content-date.pug
 	.mobile
 		include mobile/header.pug
+		include mobile/content-date.pug
 include desktop/footer.pug

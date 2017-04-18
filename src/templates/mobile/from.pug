@@ -1,0 +1,32 @@
+.row.row__input.row__form.row__from
+	.semi-title Откуда пополнить
+	.radio
+		.radio-tab
+			input(name="from-mobile",id="schet-mobile",type="radio",checked="true",value="schet").input-radio
+			label(for='schet-mobile') Со счёта
+		.radio-tab
+			input(name="from-mobile",id="card-mobile",type="radio",value="card").input-radio
+			label(for='card-mobile') С карты
+.row.row__input.row__form.row__schet
+	.semi-title С какого счёта
+	select.select
+		option(selected=true) 1
+		option 2
+.row.row__input.row__form.row__card
+	.semi-title Любая карта любого банка
+	.card
+		.card-front
+			.input.input--card 
+				input(type='text').input-text
+				.input__desc Номер карты
+			.input.input--date
+				input(type='text').input-text
+				.input__desc Срок действия карты
+		.card-back
+			.card-back__line
+			.input.input--cvc
+				input(type='text').input-text
+				.input__desc CVC
+		
+
+		

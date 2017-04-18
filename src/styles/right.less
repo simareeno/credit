@@ -16,6 +16,13 @@
 	line-height: 24px;
 	color: @primary;
 	max-width: 420px;
+
+	@media @mobile {
+		font-size: 14px;
+		line-height: 18px;
+		color: fade(@primary, 60%);
+		margin-top: 20px;
+	}
 }
 
 .tabs {

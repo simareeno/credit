@@ -16,10 +16,10 @@
 	.row
 		.row__block13.row__block.row__block--grey
 			.semi-title Ближайший платёж
-			.paragraph 29 сентября со счёта будет списано 6 253,47 ₽
+			.paragraph <span class="creditNextPaymentDate"></span> со счёта будет списано <span class="creditNextPayment"></span> ₽
 			a.button(href="add.html") Пополнить счёт
 		.row__block13.row__block.row__credit
-			.number 1 982 838
+			.number <span class="creditDebt"></span>
 				span.number__grey ,21 ₽
 			.desc Задолженность по кредиту
 		.row__block13.row__block.row__current
@@ -61,22 +61,22 @@
 	.row.row--data
 		.row__block14.row__block-data.block-data
 			.block-data__header Кредитный лимит
-			.block-data__data 70 000,00 ₽
+			.block-data__data <span class="creditLimit"></span>,00 ₽
 		.row__block14.row__block-data.block-data
 			.block-data__header Ежемесячный платёж
-			.block-data__data 6 253,47 ₽
+			.block-data__data <span class="creditMonthPayment"></span>,47 ₽
 		.row__block14.row__block-data.block-data
 			.block-data__header Процентная ставка
-			.block-data__data 18,99 %
+			.block-data__data <span class="creditMonthPayment"></span> %
 		.row__block14.row__block-data.block-data
 			.block-data__header Срок кредита
-			.block-data__data 5 лет и 2 месяца
+			.block-data__data <span class="creditDurationMonths"></span> месяцев
 		.row__block14.row__block-data.block-data
 			.block-data__header Дата выдачи
-			.block-data__data 29 сентября 2016
+			.block-data__data <span class="creditRecieveDate"></span>
 		.row__block14.row__block-data.block-data
 			.block-data__header Дата последнего платежа
-			.block-data__data 29 сентября 2049
+			.block-data__data <span class="creditLastPaymentDate"></span>
 		.row__block14.row__block-data.block-data
 			.block-data__header Номер счёта
-			.block-data__data 4081 7810 7044 4000 1693
+			.block-data__data <span class="accountNumber"></span>

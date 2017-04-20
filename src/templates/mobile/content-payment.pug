@@ -1,6 +1,6 @@
 .title-desc Чтобы ежемесячный платёж уменьшился, досрочно погасите кредит на сумму 3 000 ₽ или больше.
 
-form
+form#main-form-mobile
 	include ../sum.pug
 		
 	.row.row__input.row__form
@@ -11,5 +11,4 @@ form
 			.from-to__to 6 000,25 ₽
 		
 	include from.pug
-	.row.row__input.row__form
-		.button Пополнить
+	include ../form-end.pug

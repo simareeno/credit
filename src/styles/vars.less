@@ -2,30 +2,51 @@
 @secondary: fade(@primary, 50%);
 @gray: fade(@primary, 30%);
 @background: fade(@primary, 5%);
-
 @brandRed: #F03226;
 @uiRed: fade(@brandRed, 90%);
 @uiGreen: #5FA50D;
-
 @textPrimary: fade(@primary, 90%);
 @textSecondary: fade(@primary, 70%);
-
 @linkColor: #233549;
 @linkMenu: fade(@linkColor, 90%);
 @linkTabs: fade(@linkColor, 60%);
-
 @alfablue: #243552;
 @alfared: #EF3124;
+@lineColor: fade(#223448, 10%);
+@animateIn: .05s ease-in-out;
+@animateOut: .2s ease-in-out;
+@formWidth: 460px;
+
+@mobile: ~"(max-width: 1024px)";
+@desktop: ~"(min-width: 1024px)";
+@desktopBig: ~"(min-width: 1280px)";
+
+
+// S E T K A
+
+// @columns: 12;
+
+@columnS: 48px;
+@gutterS: 12px;
+@sideMarginS: 30px;
+
+@columnBig: 60px;
+@gutterBig: 20px;
+@sideMarginBig: 60px;
 
 @sidebarWidth: 250px;
 
-@mobile: ~"(max-width: 1024px)";
+.gutters (@gutter: @grid-gutter-width) {
+  padding-left: (@gutter / 2);
+  padding-right: (@gutter / 2);
+}
 
-@desktop: ~"(min-width: 1024px)";
+// Column mixins
 
-@lineColor: fade(#223448, 10%);
+.columnS (@n; @gutter: @gutterS; @column: @columnS) {
+	width: (@column * @n) + (@gutter * @n - @gutter);
+}
 
-@animateIn: .05s ease-in-out;
-@animateOut: .2s ease-in-out;
-
-@formWidth: 460px;
+.columnBig (@n; @gutter: @gutterBig; @column: @columnBig) {
+	width: (@column * @n) + (@gutter * @n - @gutter);
+}

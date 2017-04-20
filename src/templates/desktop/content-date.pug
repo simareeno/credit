@@ -2,7 +2,7 @@
 	.title #{title}
 	.title-desc Чтобы срок кредита уменьшился, досрочно погасите его на сумму ежемесячного платежа или больше.
 
-	form
+	form#main-form
 		.row.row__input.row__form
 			.semi-title На какой срок уменьшить кредит
 			.radio.radio-months
@@ -26,5 +26,4 @@
 			
 		include ../sum.pug
 		include from.pug
-		.row.row__input.row__form
-			.button Пополнить
+		include ../form-end.pug

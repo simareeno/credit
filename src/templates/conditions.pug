@@ -1,4 +1,4 @@
-- var title = 'Закрытие кредита'
+- var title = 'Изменение условий кредита'
 - var parentTitle = 'Кредит наличными'
 
 include head.pug
@@ -8,12 +8,10 @@ body
 		.wrapper
 			include desktop/left.pug
 			include desktop/right.pug
-			include desktop/content-close.pug
+			include desktop/content-conditions.pug
 		include desktop/sms-popup.pug
 	.mobile
 		include mobile/header.pug
-		.wrapper
-			include mobile/content-close.pug
+		include mobile/content-conditions.pug
 		include mobile/sms-popup.pug
-
 include desktop/footer.pug

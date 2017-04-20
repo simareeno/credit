@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900&subset=cyrillic-ext');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&subset=cyrillic-ext');
 @import 'vars';
 
 * {
@@ -25,10 +25,11 @@ a {
 
 .desktop, .mobile {
 	overflow-x: hidden;
-	padding-bottom: 100px;
 }
 
 .mobile {
+	padding-bottom: 40px;
+
 	@media @mobile {
 		display: block;
 	}
@@ -39,6 +40,8 @@ a {
 }
 
 .desktop {
+	padding-bottom: 100px;
+
 	@media screen and @desktop {
 		display: block;
 	}
@@ -67,12 +70,17 @@ a {
 
 .row {
 	display: flex;
-	flex-wrap: wrap;
 
 	&.main-links {
 		@media @mobile {
 			margin-top: 40px;
 		}
+	}
+
+	&__desc {
+		font-size: 13px;
+		color: fade(@primary, 60%);
+		margin-top: 6px;
 	}
 }
 
@@ -81,20 +89,32 @@ a {
 }
 
 .row__block12 {
-	width: 50%;
-	min-width: 300px;
-	float: left;
+	.columnS(6);
+	margin-right: @gutterS;
+
+	@media @desktopBig {
+		margin-right: @gutterBig;
+		.columnBig(6);
+	}
 }
 
 .row__block13 {
-	width: 33%;
-	margin-right: 30px;
+	margin-right: @gutterS;
+
+	@media @desktopBig {
+		margin-right: @gutterBig;
+	}
 }
 
 .row__block14 {
-	width: 25%;
-	min-width: 200px;
+	.columnS(3);
 	float: left;
+	margin-right: @gutterS;
+
+	@media @desktopBig {
+		.columnBig(3);
+		margin-right: @gutterBig;
+	}
 }
 
 .row__form {
@@ -107,13 +127,36 @@ a {
 	}
 
 	.button {
-		width: @formWidth;
+		.columnS(6);
 		padding: 17px 0;
 		font-weight: bold;
 		font-size: 16px;
+		transition: background .2s ease-in, opacity .2s ease-in-out;
+
+		@media @desktopBig {
+			.columnBig(6);
+		}
 
 		@media @mobile {
 			width: 100%;
+		}
+
+		&:hover {
+			background-color: darken(@alfared, 10%);
+			transition: background .05s ease-out;
+		}
+
+		&:active {
+			background-color: darken(@alfared, 20%);
+		}
+
+		&--disabled {
+			opacity: .2;
+
+			&:hover {
+				opacity: .2;
+				background: @alfared;
+			}
 		}
 	}
 }
@@ -128,7 +171,6 @@ a {
 
 .main-semi-title {
 	text-transform: uppercase;
-	opacity: 0.6;
 	font-size: 11px;
 	font-weight: bold;
 	color: @primary;
@@ -155,11 +197,15 @@ a {
 }
 
 .select {
-	max-width: @formWidth;
+	.columnS(6);
 	display: block;
 
+	@media @desktopBig {
+		.columnBig(6);
+	}
+
 	@media @mobile {
-		max-width: initial;
+		width: 100%;
 	}
 }
 
@@ -188,7 +234,7 @@ a {
 }
 
 .input-text {
-	box-shadow: 0 1px 0 #D8D8D8;
+	box-shadow: inset 0 -1px 0 #D8D8D8;
 	border: 0;
 	padding-bottom: 10px;
 	color: @primary;
@@ -198,14 +244,24 @@ a {
 	z-index: 2;
 	border-radius: 0;
 	padding-left: 0;
+	transition: box-shadow .2s ease-in-out;
+
+	&:focus {
+		box-shadow: inset 0 -2px 0 #000;
+	}
 }
 
 .input--sum {
-	width: 270px;
+	.columnS(4);
 	background-image: url(../images/rouble-input.png);
 	background-repeat: no-repeat;
 	background-size: 11px;
 	background-position: right 5px;
+	background-color: transparent;
+
+	@media @desktopBig {
+		.columnBig(4);
+	}
 
 	@media @mobile {
 		width: 100%;
@@ -242,9 +298,17 @@ input.input-radio {
 }
 
 .radio {
+	overflow: hidden;
+	height: 100%;
+    width: 100%;
+
+	@media @mobile {
+		margin-bottom: -17px;
+	}
 
 	&__wrapper {
-		overflow-x: scroll;
+		height: 100%;
+		overflow-x: overlay;
 		-webkit-overflow-scrolling: touch;
 		width: 100%;
 		padding-right: 32px;
@@ -252,6 +316,19 @@ input.input-radio {
 
 		&::-webkit-scrollbar {
 			display: none;
+		}
+
+		&::-webkit-scrollbar {
+		    width: 0px;  /* remove scrollbar space */
+		    background: transparent;  /* optional: just make scrollbar invisible */
+		}
+		/* optional: show position indicator in red */
+		&::-webkit-scrollbar-thumb {
+		    background: #FF0000;
+		}
+
+		@media @mobile {
+			padding-bottom: 17px;
 		}
 	}
 
@@ -332,7 +409,7 @@ input.input-radio {
 
 .wrapper {
 	.main-links:first-child {
-		margin-top: 10px;
+		margin-top: -4px;
 	}
 }
 
@@ -342,5 +419,12 @@ input.input-radio {
 		.wrapper {
 			margin: 0 0 0 12px;
 		}
+	}
+}
+
+input[type=number] {
+	&::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
 	}
 }

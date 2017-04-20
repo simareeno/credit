@@ -1,3 +1,4 @@
-.row.row__input.row__form
-	.semi-title Сумма пополнения
-	input(type='text',placeholder='0').input-text.input--sum
+.row.row__input.row__form.row--sum
+	.input
+		input(form='main-form', type='text',pattern="[0-9]*",inputmode="numeric").input-text.input--sum
+		.input__desc Сумма пополнения

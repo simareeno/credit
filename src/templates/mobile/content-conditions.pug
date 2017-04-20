@@ -1,0 +1,48 @@
+form#main-form-mobile
+	.wrapper
+		.row.row__input.row__form.row__from
+			.semi-title Что изменить
+			.radio
+				.radio-tab
+					input(name="what-change",id="srok-mobile",type="radio",checked="true",value="srok-mobile", form='main-form-mobile').input-radio
+					label(for='srok-mobile') Срок кредита
+				.radio-tab
+					input(name="what-change",id="platej-mobile",type="radio",value="platej-mobile", form='main-form-mobile').input-radio
+					label(for='platej-mobile') Платёж
+	.row.row__input.row__form.row__dates
+		.semi-title Осталось до конца кредита
+		.radio.radio-months
+			.radio__wrapper
+				.radio-tab
+					input(name="months-mobile",id="month1-mobile",type="radio").input-radio
+					label(for='month1-mobile') 60 месяцев
+						span.radio-tab__desc 5 953,47 ₽
+				.radio-tab
+					input(name="months-mobile",id="month2-mobile",type="radio").input-radio
+					label(for='month2-mobile') 59 месяцев
+						span.radio-tab__desc 6 053,47 ₽
+				.radio-tab
+					input(name="months-mobile",id="month3-mobile",type="radio").input-radio
+					label(for='month3-mobile') 58 месяцев
+						span.radio-tab__desc 6 153,47 ₽
+				.radio-tab
+					input(name="months-mobile",id="month4-mobile",type="radio").input-radio
+					label(for='month4-mobile') 57 месяцев
+						span.radio-tab__desc 6 253,47 ₽
+				.radio-tab
+					input(name="months-mobile",id="month5-mobile",type="radio").input-radio
+					label(for='month5-mobile') 56 месяцев
+						span.radio-tab__desc 6 353,47 ₽
+	.wrapper
+		.row.row__input.row__form.row__new-payment
+			.semi-title Новый ежемесячный платёж
+			input(type='text',pattern="[0-9]*",inputmode="numeric", form='main-form').input-text.input--sum
+			.row__desc Сейчас ежемесячный платёж — 6 253,47 ₽
+
+		.row.row__input.row__form.row__new-credit-date
+			.semi-title Как изменится срок кредита
+			.from-to
+				.from-to__from 60 месяцев
+				.from-to__arrow →
+				.from-to__to 53 месяца
+		include ../parts/form-end-clear.pug

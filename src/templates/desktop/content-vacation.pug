@@ -1,0 +1,33 @@
+.right
+	.title #{title}
+	.title-desc Вы добросовестно погашаете кредит, и мы хотим поблагодарить вас за это. Вы можете немного отдохнуть от выплат кредита.
+	
+	form#main-form
+		.row.row__input.row__form
+			.semi-title На какой срок взять каникулы
+			.radio.radio-months
+				.radio-tab
+					input(name="vacation",id="vacation1",type="radio").input-radio
+					label(for='vacation1') 1 месяц
+						span.radio-tab__desc до 27 марта
+				.radio-tab
+					input(name="vacation",id="vacation2",type="radio", checked="true").input-radio
+					label(for='vacation2') 2 месяца
+						span.radio-tab__desc до 27 апреля
+				.radio-tab
+					input(name="vacation",id="vacation3",type="radio").input-radio
+					label(for='vacation3') 3 месяца
+						span.radio-tab__desc до 27 мая
+				.radio-tab
+					input(name="vacation",id="vacation4",type="radio").input-radio
+					label(for='vacation4') 4 месяца
+						span.radio-tab__desc до 27 июня
+				.radio-tab
+					input(name="vacation",id="vacation5",type="radio").input-radio
+					label(for='vacation5') 5 месяцев
+						span.radio-tab__desc до 27 июля
+				.radio-tab
+					input(name="vacation",id="vacation6",type="radio").input-radio
+					label(for='vacation6') 6 месяцев
+						span.radio-tab__desc до 27 августа
+		include ../parts/form-end-clear.pug

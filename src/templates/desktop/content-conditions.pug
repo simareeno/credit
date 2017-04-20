@@ -1,0 +1,48 @@
+.right
+	.title #{title}
+	
+	form#main-form(name="main-form")
+		.row.row__input.row__form.row__from
+			.semi-title Что изменить
+			.radio
+				.radio-tab
+					input(name="what-change",id="srok",type="radio",checked="true",value="srok", form='main-form').input-radio
+					label(for='srok') Срок кредита
+				.radio-tab
+					input(name="what-change",id="platej",type="radio",value="platej", form='main-form').input-radio
+					label(for='platej') Платёж
+		.row.row__input.row__form.row__credit-end
+			.semi-title Осталось до конца кредита
+			.radio.radio-months
+				.radio-tab
+					input(name="months",id="month1",type="radio",checked="true").input-radio
+					label(for='month1') 60 месяцев
+						span.radio-tab__desc 5 953,47 ₽
+				.radio-tab
+					input(name="months",id="month2",type="radio").input-radio
+					label(for='month2') 59 месяцев
+						span.radio-tab__desc 6 053,47 ₽
+				.radio-tab
+					input(name="months",id="month3",type="radio").input-radio
+					label(for='month3') 58 месяцев
+						span.radio-tab__desc 6 153,47 ₽
+				.radio-tab
+					input(name="months",id="month4",type="radio").input-radio
+					label(for='month4') 57 месяцев
+						span.radio-tab__desc 6 253,47 ₽
+				.radio-tab
+					input(name="months",id="month5",type="radio").input-radio
+					label(for='month5') 56 месяцев
+						span.radio-tab__desc 6 353,47 ₽
+		.row.row__input.row__form.row__new-payment
+			.semi-title Новый ежемесячный платёж
+			input(type='text',placeholder='0', form='main-form').input-text.input--sum
+			.row__desc Сейчас ежемесячный платёж — 6 253,47 ₽
+
+		.row.row__input.row__form.row__new-credit-date
+			.semi-title Как изменится срок кредита
+			.from-to
+				.from-to__from 60 месяцев
+				.from-to__arrow →
+				.from-to__to 53 месяца
+		include ../parts/form-end-clear.pug

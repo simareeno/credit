@@ -17,15 +17,15 @@
 	.card
 		.card-front
 			.input.input--card 
-				input(type='text').input-text
+				input(type='text',pattern="[0-9]*",inputmode="numeric").input-text
 				.input__desc Номер карты
 			.input.input--date
-				input(type='text').input-text
+				input(type='text',pattern="[0-9]*",inputmode="numeric").input-text
 				.input__desc Срок действия карты
 		.card-back
 			.card-back__line
 			.input.input--cvc
-				input(type='text').input-text
+				input(type='text',pattern="[0-9]*",inputmode="numeric").input-text
 				.input__desc CVC
 		
 

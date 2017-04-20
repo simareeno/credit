@@ -101,7 +101,14 @@ header {
 .mobile-title {
 	font-weight: bold;
 	font-size: 17px;
+	line-height: 22px;
 	margin: 18px 0 18px 36px;
+
+	&--centered {
+		text-align: center;
+		margin: 18px auto 0;
+		max-width: 80%;
+	}
 }
 
 .mobile {
@@ -109,8 +116,8 @@ header {
 	.header {
 		position: relative;
 
-		&--superbutton {
-			padding: 16px 0 42px;
+		.row {
+			flex-wrap: wrap;
 		}
 
 		&:after {
@@ -141,6 +148,7 @@ header {
 			position: relative;
 			z-index: 5;
 			margin-left: 36px;
+			margin-bottom: 10px;
 
 			&__block {
 				position: relative;

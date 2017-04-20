@@ -3,14 +3,14 @@
 	
 	.row
 		.row__block13.row__block.row__credit
-			.number 9 586
+			.number <span class="currentAccountSum"></span>
 				span.number__grey ,10 ₽
 				span.number__card
-			.desc Текущий счёт ··4576
+			.desc Текущий счёт ··<span class="currentAccountNumber"></span>
 		.row__block13.row__block.row__current
-			.number 6 253
+			.number <span class="creditNextPayment"></span>
 				span.number__grey ,47 ₽
-			.desc Платёж 29 сентября
+			.desc Платёж <span class="creditNextPaymentDate"></span>
 	
 	form#main-form
 		include ../sum.pug

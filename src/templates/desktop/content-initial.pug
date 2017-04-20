@@ -23,10 +23,10 @@
 				span.number__grey ,21 ₽
 			.desc Задолженность по кредиту
 		.row__block13.row__block.row__current
-			.number 9 586
+			.number <span class="currentAccountSum"></span>
 				span.number__grey ,10 ₽
 				span.number__card
-			.desc Текущий счёт ··4576
+			.desc Текущий счёт ··<span class="currentAccountNumber"></span>
 		
 	.row
 		.row__big-title Управление кредитом
@@ -43,7 +43,7 @@
 			a.row__link(href="close.html")
 				.row__link-icon.row__link-icon--clock
 				.row__link-text Закрыть кредит
-				.row__link-desc 1 981 000 ₽, чтобы закрыть кредит сегодня
+				.row__link-desc <span class="creditDebt"></span> ₽, чтобы закрыть кредит сегодня
 		.row__block12
 			.semi-title Сделайте кредит лучше
 			a.row__link(href="conditions.html")
@@ -67,10 +67,10 @@
 			.block-data__data <span class="creditMonthPayment"></span>,47 ₽
 		.row__block14.row__block-data.block-data
 			.block-data__header Процентная ставка
-			.block-data__data <span class="creditMonthPayment"></span> %
+			.block-data__data <span class="creditRate"></span> %
 		.row__block14.row__block-data.block-data
 			.block-data__header Срок кредита
-			.block-data__data <span class="creditDurationMonths"></span> месяцев
+			.block-data__data <span class="creditDurationText"></span>
 		.row__block14.row__block-data.block-data
 			.block-data__header Дата выдачи
 			.block-data__data <span class="creditRecieveDate"></span>
@@ -79,4 +79,4 @@
 			.block-data__data <span class="creditLastPaymentDate"></span>
 		.row__block14.row__block-data.block-data
 			.block-data__header Номер счёта
-			.block-data__data <span class="accountNumber"></span>
+			.block-data__data 4081 7810 7044 4000 1693

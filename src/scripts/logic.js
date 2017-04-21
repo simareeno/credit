@@ -25,16 +25,6 @@ $( ".input-text" ).focus(function() {
 	$( this ).next( ".input__desc" ).addClass( "input__desc--active" );
 });
 
-$('.button-submit').click(function () {
-	var submitDisabled = $(this).hasClass('button--disabled');
-	if (!submitDisabled) {
-		$("html, body").animate({scrollTop: 0}, 250);
-		$('.popup').addClass('popup--active');
-		$('.overlay').addClass('overlay--active');
-		$('.input--sms').focus();
-	}
-})
-
 $('.overlay, .popup__close').click(function () {
 	$('.popup').removeClass('popup--active');
 	$('.overlay').removeClass('overlay--active');
@@ -47,12 +37,12 @@ $( ".input-text" ).blur(function() {
 	}
 });
 
-$(".input--sum").keyup(function () {
+$(".add .input--sum, .payment .input--sum").keyup(function () {
 	var letters = $(this).val().length;
 	if (letters > 0) {
-		$('.button-submit').removeClass('button--disabled')
+		$('.button-submit').removeClass('button--disabled');
 	} else if (letters == 0) {
-		$('.button-submit').addClass('button--disabled')
+		$('.button-submit').addClass('button--disabled');
 	}
 })
 

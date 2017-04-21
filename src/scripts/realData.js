@@ -16,19 +16,65 @@ function declOfNum(number, titles) {
     return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
 }
 
+function calculateMonthPayment(debt, months) {
+	var payment = Math.floor(debt / months);
+	return payment;
+}
+
+function updateCreditDates() {
+	var creditYearsLeft = Math.floor(data.creditDurationMonths / 12);
+	var creditMonthsLeft = Math.floor(data.creditDurationMonths % 12);
+	var creditYearsLeftText = creditYearsLeft + ' ' + declOfNum(
+		creditYearsLeft, ['год', 'года', 'лет']
+	);
+	var creditMonthsLeftText = creditMonthsLeft + ' ' + declOfNum(
+		creditMonthsLeft, ['месяц', 'месяца', 'месяцев']
+	)
+	var creditFullText = '';
+	if (creditYearsLeft > 0) {
+		creditFullText += creditYearsLeftText;
+	}
+	if (creditMonthsLeft > 0) {
+		creditFullText += ' и ' + creditMonthsLeftText
+	}
+	$('.creditDurationText').text(creditFullText);
+}
+
+function updateData() {
+	setData('creditLastPaymentDate');
+	setData('creditRecieveDate');
+	setData('creditDurationMonths');
+	setData('creditRate');
+	setData('creditLimit', true);
+	setData('creditDebt', true);
+	setData('creditNextPaymentDate', true);
+	$('.creditNextPayment').text(numberWithSpaces(
+		calculateMonthPayment(data.creditDebt, data.creditDurationMonths)
+	));
+	$('.creditMonthPayment').text(numberWithSpaces(
+		calculateMonthPayment(data.creditDebt, data.creditDurationMonths)
+	));
+	$('.currentAccountSum').text(numberWithSpaces(currentAccountSum));
+	$('.currentAccountNumber').text(numberWithSpaces(currentAccountNumber));
+	updateCreditDates();
+}
+
+function activateSmsPopup() {
+	$("html, body").animate({scrollTop: 0}, 250);
+	$('.popup').addClass('popup--active');
+	$('.overlay').addClass('overlay--active');
+	$('.input--sms').focus();
+}
 
 var userData = {
-	'name': 'Дмитрий Маслов',
-	'accountNumber': '4081 7810 7044 4000 1693',
 	'creditNextPaymentDate': '25 сентября',
-	'creditNextPayment': 6253,
-	'creditDebt': 1882838,
-	'creditLimit': 70000,
+	'creditDebt': 820000,
+	'creditLimit': 900000,
 	'creditRecieveDate': '29 сентября 2016',
 	'creditLastPaymentDate': '29 сентября 2049',
 	'creditMonthPayment': 6253,
 	'creditRate': '18,99',
-	'creditDurationMonths': 62,
+	'creditDurationMonths': 12,
 	'accounts' : [
 		{
 			'accountNumber' : 4576,
@@ -44,45 +90,151 @@ var userData = {
 	]
 };
 
+function updateStorage() {
+	data.accounts = accounts;
+	localStorage.setItem('user', JSON.stringify(data));
+	updateData();
+}
+
 // Если данных нет, загружаем
 if (localStorage.length == 0) {
 	localStorage.setItem('user', JSON.stringify(userData))
 }
 
 // Получаем данные
-var data = JSON.parse(localStorage.getItem('user'));
+data = JSON.parse(localStorage.getItem('user'));
 
 // Счета и текущий счет
-var accounts = data.accounts;
+accounts = data.accounts;
 var currentAccount = accounts[0];
 var currentAccountNumber = currentAccount.accountNumber;
 var currentAccountSum = currentAccount.accountSum;
 
-// Длительность кредита
-var creditYearsLeft = Math.floor(data.creditDurationMonths / 12);
-var creditMonthsLeft = Math.floor(data.creditDurationMonths % 12);
-var creditYearsLeftText = creditYearsLeft + ' ' + declOfNum(
-	creditYearsLeft, ['год', 'года', 'лет']
-)
-var creditMonthsLeftText = creditMonthsLeft + ' ' + declOfNum(
-	creditMonthsLeft, ['месяц', 'месяца', 'месяцев']
-)
-var creditFullText = ''
-if (creditYearsLeft > 0) {
-	creditFullText += creditYearsLeftText + ' и ';
-}
-creditFullText += creditMonthsLeftText;
-
 // Вбиваем данные
-setData('creditLastPaymentDate');
-setData('creditRecieveDate');
-setData('creditDurationMonths');
-setData('creditRate');
-setData('creditMonthPayment', true); // если нужно сделать пробел в цифре
-setData('creditLimit', true);
-setData('creditDebt', true);
-setData('creditNextPayment', true);
-setData('creditNextPaymentDate', true);
-$('.creditDurationText').text(creditFullText);
-$('.currentAccountSum').text(numberWithSpaces(currentAccountSum));
-$('.currentAccountNumber').text(numberWithSpaces(currentAccountNumber));
+updateData();
+
+// Пополнение счета
+$('.add .' + device + ' .input--sum').keyup(function () {
+	var thisInput = $(this);
+	thisInput.unmask();
+	if (thisInput.val() > data.creditDebt) {
+		thisInput.val(data.creditDebt);
+	}
+});
+$('.add .' + device + ' .button').click(function () {
+	if (!$(this).hasClass('button--disabled')) {
+		var paymentAmount = parseInt($('.' + device + ' .input--sum').val().replace(/\s+/g, ''));
+		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
+		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
+
+		if ($('#card').is(':checked')) {
+			data.creditDebt -= paymentAmount;
+			activateSmsPopup();
+			updateStorage();
+			return;
+		}
+
+		if (currentAccountSum < paymentAmount) {
+			$('.row__schet .semi-title').addClass('semi-title--error').text('На счете недостаточно средств');
+			$('.selectize-input').addClass('selectize-input--error');
+		} else {
+			data.creditDebt -= paymentAmount;
+			if (chosenAccount == 4576) {
+				data.accounts[0].accountSum -= paymentAmount
+			} else {
+				data.accounts[1].accountSum -= paymentAmount
+			}
+			activateSmsPopup();
+			updateStorage();
+		}
+	}
+})
+
+// Пополнение счета
+var currentMonthPaymentBlock = $('.from-to__from');
+var futureMonthPaymentBlock = $('.from-to__to');
+currentMonthPaymentBlock.text(numberWithSpaces(calculateMonthPayment(data.creditDebt, data.creditDurationMonths) + ' ₽'))
+futureMonthPaymentBlock.text(numberWithSpaces(calculateMonthPayment(data.creditDebt, data.creditDurationMonths) + ' ₽'))
+function getPayment() {
+	var inputSum = parseInt($('.payment .' + device + ' .input--sum').unmask().val());
+	var payment = Math.floor((data.creditDebt - inputSum) / 12);
+	if (payment < 0) {
+		return 0;
+	}
+	return payment;
+}
+$('.payment .' + device + ' .input--sum').keyup(function () {
+	var thisInput = $(this);
+	var newPayment = getPayment();
+	if (thisInput.val() > data.creditDebt) {
+		thisInput.val(data.creditDebt);
+	}
+	setTimeout(function () {
+		if (thisInput.val().length > 0) {
+			$('.from-to').addClass('from-to--active');
+			futureMonthPaymentBlock.text(numberWithSpaces(
+				newPayment + ' ₽'
+			));
+		} else {
+			$('.from-to').removeClass('from-to--active');
+		}
+	}, 200);
+});
+$('.payment .' + device + ' .button').click(function () {
+	if (!$(this).hasClass('button--disabled')) {
+		var paymentAmount = parseInt($('.' + device + ' .input--sum').val().replace(/\s+/g, ''));
+		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
+		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
+
+		if ($('#card').is(':checked')) {
+			data.creditDebt -= paymentAmount;
+			activateSmsPopup();
+			updateStorage();
+			return;
+		}
+
+		if (currentAccountSum < paymentAmount) {
+			$('.row__schet .semi-title').addClass('semi-title--error').text('На счете недостаточно средств');
+			$('.selectize-input').addClass('selectize-input--error');
+		} else {
+			data.creditDebt -= paymentAmount;
+			if (chosenAccount == 4576) {
+				data.accounts[0].accountSum -= paymentAmount
+			} else {
+				data.accounts[1].accountSum -= paymentAmount
+			}
+			activateSmsPopup();
+			updateStorage();
+		}
+	}
+})
+
+// Закрыть кредит
+$('.close .' + device + ' .button').click(function () {
+	if (!$(this).hasClass('button--disabled')) {
+		var paymentAmount = data.creditDebt;
+		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
+		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
+
+		if ($('#card').is(':checked')) {
+			data.creditDebt -= paymentAmount;
+			activateSmsPopup();
+			updateStorage();
+			return;
+		}
+
+		if (currentAccountSum < paymentAmount) {
+			$('.row__schet .semi-title').addClass('semi-title--error').text('На счете недостаточно средств');
+			$('.selectize-input').addClass('selectize-input--error');
+		} else {
+			data.creditDebt -= paymentAmount;
+			if (chosenAccount == 4576) {
+				data.accounts[0].accountSum -= paymentAmount
+			} else {
+				data.accounts[1].accountSum -= paymentAmount
+			}
+			activateSmsPopup();
+			updateStorage();
+		}
+	}
+})

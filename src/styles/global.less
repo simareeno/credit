@@ -16,7 +16,10 @@ body {
 	-webkit-font-smoothing: antialiased;
 	overflow-x: hidden;
 	max-width: 100%;
-	min-height: 750px;
+
+	@media @desktop {
+		min-height: 750px;
+	}
 }
 
 a {
@@ -124,7 +127,6 @@ a {
 
 	.semi-title {
 		width: 100%;
-		margin-bottom: 15px;
 	}
 
 	.button {
@@ -165,9 +167,14 @@ a {
 .semi-title {
 	font-weight: bold;
 	color: @primary;
-	font-size: 17px;
-	line-height: 23px;
-	margin-bottom: 10px;
+	font-size: 13px;
+	line-height: 24px;
+	margin-bottom: 8px;
+	transition: color .2s ease-in-out;
+
+	&--error {
+		color: @alfared;
+	}
 }
 
 .main-semi-title {
@@ -195,6 +202,16 @@ a {
 	border-radius: 4px;
 	cursor: pointer;
 	user-select: none;
+	transition: background .2s ease-in-out;
+
+	@media @desktop {
+		&:hover {
+			background: darken(@alfared, 10%);
+		}
+		&:active {
+			background: darken(@alfared, 20%);
+		}
+	}
 }
 
 .select {
@@ -229,7 +246,7 @@ a {
 		&--active {
 			font-size: 13px;
 			opacity: 1;
-			transform: translate(0, -20px);
+			transform: translate(0, -24px);
 		}
 	}
 }

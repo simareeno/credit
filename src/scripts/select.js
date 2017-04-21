@@ -1,27 +1,34 @@
+function numberWithSpaces(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+
 $('.select').selectize({
 	valueField: 'id',
 	labelField: 'name',
 	options: [
-		{id: 1, money: '9 586', semi: ',10', schet: 'Текущий счёт', schetNumber: '5522'},
-		{id: 2, money: '56 273', semi: ',51', schet: 'Другой счёт', schetNumber: '1216'}
+		{id: 1, money: numberWithSpaces(accounts[0].accountSum), semi: ',10', schet: 'Текущий счёт', schetNumber: accounts[0].accountNumber},
+		{id: 2, money: numberWithSpaces(accounts[1].accountSum), semi: ',51', schet: 'Другой счёт', schetNumber: accounts[1].accountNumber}
 	],
 	create: false,
 	render: {
 		option: function(item, escape) {
 			return '<div>' +
-				'<span class="select__money number">' + item.money +
+				'<span class="select__money number">' +
+					'<span class="number__val">' + item.money + '</span>' +
 					'<span class="number__grey">' + item.semi + ' ₽</span>' +
 				'</span>' +
-				'<span class="description"> ' + item.schet + '··' + item.schetNumber + '</span>' +
+				'<span class="description"> ' + item.schet + '··' + '<span class="accountNumber">' + item.schetNumber + '</span>' + '</span>' +
 			'</div>';
 		},
 
 		item: function (item, escape) {
 			return '<div>' +
-				'<span class="select__money number">' + item.money +
+				'<span class="select__money number">' +
+					'<span class="number__val">' + item.money + '</span>' +
 					'<span class="number__grey">' + item.semi + ' ₽</span>' +
 				'</span>' +
-				'<span class="description"> ' + item.schet + '··' + item.schetNumber + '</span>' +
+				'<span class="description"> ' + item.schet + '··' + '<span class="accountNumber">' + item.schetNumber + '</span>' + '</span>' +
 			'</div>';
 		}
 	}

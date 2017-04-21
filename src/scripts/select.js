@@ -1,14 +1,13 @@
-function numberWithSpaces(x) {
+function numberWithSpace(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
-
 
 $('.select').selectize({
 	valueField: 'id',
 	labelField: 'name',
 	options: [
-		{id: 1, money: numberWithSpaces(accounts[0].accountSum), semi: ',10', schet: 'Текущий счёт', schetNumber: accounts[0].accountNumber},
-		{id: 2, money: numberWithSpaces(accounts[1].accountSum), semi: ',51', schet: 'Другой счёт', schetNumber: accounts[1].accountNumber}
+		{id: 1, money: numberWithSpace(accounts[0].accountSum), semi: ',10', schet: 'Текущий счёт', schetNumber: accounts[0].accountNumber},
+		{id: 2, money: numberWithSpace(accounts[1].accountSum), semi: ',51', schet: 'Другой счёт', schetNumber: accounts[1].accountNumber}
 	],
 	create: false,
 	render: {

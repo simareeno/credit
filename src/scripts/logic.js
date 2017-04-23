@@ -1,7 +1,4 @@
-$('.row__card, .row__new-payment, .row__new-credit-date').hide();
-// $('.input--sum').focus();
-// $('.input--sum').trigger('touchstart');
-// $( ".input__desc" ).addClass( "input__desc--active" );
+$('.row__card, .row__new-payment, .row__new-credit-date, .row__new-credit-sum, .row__newDate').hide();
 
 $('input[type=radio][name=from]').change(function(event) {
 	$('.row__schet, .row__card').toggle();
@@ -9,13 +6,22 @@ $('input[type=radio][name=from]').change(function(event) {
 });
 
 $('input[type=radio][name=what-change]').change(function(event) {
-	$('.row__credit-end, .row__new-payment, .row__new-credit-date').toggle();
-	$('.input--sum').focus();
+	if ($("#srok").is(':checked')) {
+		$('.row__new-payment, .row__new-credit-date').hide();
+		$('.row__credit-end').show();
+		$('.input--sum').blur();
+	} else {
+		$('.row__new-payment, .row__new-credit-date').show();
+		$('.row__credit-end, .row__new-payment-date, .row__whatDate').hide();
+		$('.input--sum').focus();
+	}
 });
 
 $('input[type=radio][name=what-change-mobile]').change(function(event) {
-	$('.row__credit-end, .row__new-payment, .row__new-credit-date').toggle();
+	$('.row__credit-end, .row__dates, .row__new-payment, .row__new-credit-date, .row__new-payment-date').toggle();
 });
+
+$('.row__whatDate, .row__new-payment-date').hide();
 
 $('input[type=radio][name=from-mobile]').change(function(event) {
 	$('.row__schet, .row__card').toggle();

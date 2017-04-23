@@ -13,31 +13,18 @@
 					label(for='platej') Платёж
 		.row.row__input.row__form.row__credit-end
 			.semi-title Осталось до конца кредита
-			.radio.radio-months
-				.radio-tab
-					input(name="months",id="month1",type="radio",checked="true").input-radio
-					label(for='month1') 60 месяцев
-						span.radio-tab__desc 5 953,47 ₽
-				.radio-tab
-					input(name="months",id="month2",type="radio").input-radio
-					label(for='month2') 59 месяцев
-						span.radio-tab__desc 6 053,47 ₽
-				.radio-tab
-					input(name="months",id="month3",type="radio").input-radio
-					label(for='month3') 58 месяцев
-						span.radio-tab__desc 6 153,47 ₽
-				.radio-tab
-					input(name="months",id="month4",type="radio").input-radio
-					label(for='month4') 57 месяцев
-						span.radio-tab__desc 6 253,47 ₽
-				.radio-tab
-					input(name="months",id="month5",type="radio").input-radio
-					label(for='month5') 56 месяцев
-						span.radio-tab__desc 6 353,47 ₽
+			.radio.radio-months.radio-months--conditions
+				.radio__wrapper
+		.row.row__input.row__form.row__whatDate
+			.semi-title Количество месяцев кредита
+			input(type='text',pattern="[0-9]*",inputmode="numeric", form='main-form').input-text.input--whatDate
+		.row.row__input.row__form.row__new-payment-date
+			.semi-title Как изменится платеж
+			.row__text 
 		.row.row__input.row__form.row__new-payment
 			.semi-title Новый ежемесячный платёж
 			input(type='text',placeholder='0', form='main-form').input-text.input--sum
-			.row__desc Сейчас ежемесячный платёж — <span class="creditMonthPayment"></span>,00 ₽. Платёж не может быть ниже <span class="creditMonthMinPayment"></span> ₽.
+			.row__desc Сейчас ежемесячный платёж — <span class="creditMonthPayment"></span>,00 ₽. Платёж не может быть ниже <span class="creditMonthMinPayment"></span> ₽ и выше задолжности по кредиту.
 
 		.row.row__input.row__form.row__new-credit-date
 			.semi-title Как изменится срок кредита

@@ -4,31 +4,8 @@
 form#main-form-mobile
 	.row.row__input.row__form.row__dates
 		.semi-title На какой срок взять каникулы
-		.radio.radio-months
+		.radio.radio-months.radio-months--vacations
 			.radio__wrapper
-				.radio-tab
-					input(name="vacation-mobile",id="vacation1-mobile",type="radio").input-radio
-					label(for='vacation1-mobile') 1 месяц
-						span.radio-tab__desc до 27 марта
-				.radio-tab
-					input(name="vacation-mobile",id="vacation2-mobile",type="radio",checked="true").input-radio
-					label(for='vacation2-mobile') 2 месяца
-						span.radio-tab__desc до 27 апреля
-				.radio-tab
-					input(name="vacation-mobile",id="vacation3-mobile",type="radio").input-radio
-					label(for='vacation3-mobile') 3 месяца
-						span.radio-tab__desc до 27 мая
-				.radio-tab
-					input(name="vacation-mobile",id="vacation4-mobile",type="radio").input-radio
-					label(for='vacation4-mobile') 4 месяца
-						span.radio-tab__desc до 27 июня
-				.radio-tab
-					input(name="vacation-mobile",id="vacation5-mobile",type="radio").input-radio
-					label(for='vacation5-mobile') 5 месяцев
-						span.radio-tab__desc до 27 июля
-				.radio-tab
-					input(name="vacation-mobile",id="vacation6-mobile",type="radio").input-radio
-					label(for='vacation6-mobile') 6 месяцев
-						span.radio-tab__desc до 27 августа
 	.wrapper
+		- var buttonLabel = 'Взять каникулы'
 		include ../parts/form-end-clear.pug

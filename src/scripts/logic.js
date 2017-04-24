@@ -52,13 +52,6 @@ $(".add .input--sum, .payment .input--sum").keyup(function () {
 	}
 })
 
-$(".input--sms").keyup(function () {
-	var letters = $(this).val().length;
-	if (letters == 4) {
-		window.location.href = 'notification.html';
-	}
-})
-
 $('.notification').addClass('notification--active');
 $('.notification__close').click(function () {
 	$('.notification').removeClass('notification--active');

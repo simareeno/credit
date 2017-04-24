@@ -1,6 +1,7 @@
 var monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня",
   "июля", "августа", "сентября", "октября", "ноября", "декабря"
 ];
+var notificationData;
 
 function setData(value, spaces) {
 
@@ -16,8 +17,8 @@ function numberWithSpaces(x) {
 }
 
 function declOfNum(number, titles) {
-    cases = [2, 0, 1, 1, 1, 2];
-    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+	cases = [2, 0, 1, 1, 1, 2];
+	return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
 }
 
 function calculateMonthPayment(debt, months) {
@@ -176,6 +177,7 @@ $('.add .' + device + ' .button').click(function () {
 		if ($('#card').is(':checked')) {
 			if (!data.creditDebt == 0) {
 				data.creditDebt -= paymentAmount;
+				notificationData = 'add=' + paymentAmount;
 			}
 			data.accounts[0].accountSum += surplus
 			activateSmsPopup();
@@ -188,6 +190,7 @@ $('.add .' + device + ' .button').click(function () {
 			$('.selectize-input').addClass('selectize-input--error');
 		} else {
 			data.creditDebt -= paymentAmount;
+			notificationData = 'add=' + paymentAmount;
 			if (chosenAccount == 2191) {
 				data.accounts[1].accountSum -= paymentAmount
 				data.accounts[1].accountSum += surplus
@@ -283,6 +286,7 @@ $('.close .' + device + ' .button').click(function () {
 
 		if ($('#card').is(':checked')) {
 			data.creditDebt -= paymentAmount;
+			notificationData = 'close=' + paymentAmount;
 			activateSmsPopup();
 			updateStorage();
 			return;
@@ -293,6 +297,7 @@ $('.close .' + device + ' .button').click(function () {
 			$('.selectize-input').addClass('selectize-input--error');
 		} else {
 			data.creditDebt -= paymentAmount;
+			notificationData = 'close=' + paymentAmount;
 			if (chosenAccount == 4576) {
 				data.accounts[0].accountSum -= paymentAmount
 			} else {
@@ -488,7 +493,7 @@ anotherTab += ('</label>');
 anotherTab += ('</div>');
 monthsRadio.append(anotherTab);
 
-var firstTab = $('.radio-months--conditions .radio-tab:first-child');
+var firstTab = $('.radio-months--date .radio-tab:first-child');
 var conditionsMonths = parseInt(firstTab.find('.radio-tab__title').text());
 var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replace(/\s+/g, ''));
 
@@ -519,7 +524,6 @@ $('.input--newDate').keyup(function () {
 	if (conditionsMonths > data.creditDurationMonths) {
 		$(this).val(data.creditDurationMonths);
 	}
-	console.log(conditionsMonths);
 	if (thisInput.val() > 0) {
 		$('.row__new-credit-sum').show();
 		$('.button-submit').removeClass('button--disabled');
@@ -527,24 +531,22 @@ $('.input--newDate').keyup(function () {
 		$('.row__new-credit-sum').hide();
 		$('.button-submit').addClass('button--disabled');
 	}
-	currentSum = Math.ceil(data.creditMonthPayment * conditionsMonths);
-	var conditionsNewPayment = numberWithSpaces(currentSum) + ' ₽';
+	conditionsPayment = Math.ceil(data.creditMonthPayment * conditionsMonths);
+	var conditionsNewPayment = numberWithSpaces(conditionsPayment) + ' ₽';
 	$('.row__new-credit-sum .row__text').text(conditionsNewPayment);
 })
 
 $('.date .' + device + ' .button').click(function () {
 	if (!$(this).hasClass('button--disabled')) {
-		paymentAmount = parseInt(currentSum.replace(/\s+/g, ''));
+		paymentAmount = conditionsPayment;
 		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
 		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
-
-		console.log(paymentAmount);
-		console.log(currentAccountSum);
 
 		if ($('#card').is(':checked')) {
 			if (!data.creditDebt == 0) {
 				data.creditDurationMonths -= conditionsMonths;
 				data.creditDebt -= paymentAmount;
+				notificationData = 'date=' + conditionsMonths;
 			}
 			activateSmsPopup();
 			updateStorage();
@@ -558,6 +560,7 @@ $('.date .' + device + ' .button').click(function () {
 			if (!data.creditDebt == 0) {
 				data.creditDebt -= paymentAmount;
 				data.creditDurationMonths -= conditionsMonths;
+				notificationData = 'date=' + conditionsMonths;
 			}
 			if (chosenAccount == 2191) {
 				data.accounts[1].accountSum -= paymentAmount
@@ -603,6 +606,58 @@ $('.vacation .' + device + ' .button').click(function () {
 	newVacationDate.setYear(2017);
 	newVacationDate.setMonth(neededMonths, 26);
 	data.creditNextPaymentDate = newVacationDate;
+	notificationData = 'vacation=' + currentMonthAmount;
 	activateSmsPopup();
 	updateStorage();
 })
+
+// Нотификации
+var notificationTitleText = '';
+var notificationDescText = '';
+$(".input--sms").keyup(function () {
+	var letters = $(this).val().length;
+	if (letters == 4) {
+		window.location.href = 'notification.html' + '?' + notificationData;
+	}
+})
+
+var GET = {};
+var query = window.location.search.substring(1).split("&");
+for (var i = 0, max = query.length; i < max; i++)
+{
+	if (query[i] === "") // check for trailing & with no param
+		continue;
+
+	var param = query[i].split("=");
+	GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+}
+$('.row__new-notification-payment').hide();
+if (GET.vacation) {
+	var notificationVacationDays = GET.vacation;
+	notificationDescText += 'Следующий платёж ' + getDateText(data.creditNextPaymentDate, 0);
+	notificationTitleText += 'Кредитные каникулы на '+ notificationVacationDays + ' ';
+	notificationTitleText += declOfNum(notificationVacationDays, ['месяц', 'месяца', 'месяцев']) +' включены';
+	$('.notification__title').text(notificationTitleText);
+	$('.notification__desc').text(notificationDescText);
+} else if (GET.add) {
+	var notificationAddSum = GET.add;
+	var nextPayment = numberWithSpaces(calculateMonthPayment(data.creditDebt, data.creditDurationMonths));
+	notificationTitleText += 'Счет с кредитом пополнен на '+ numberWithSpaces(notificationAddSum) + ' ₽';
+	notificationDescText += getDateText(data.creditNextPaymentDate, 0);
+	notificationDescText += ' со счёта будет списано ';
+	notificationDescText += nextPayment + ' ₽';
+	$('.notification__title').text(notificationTitleText);
+	$('.notification__desc').text(notificationDescText);
+} else if (GET.close) {
+	notificationTitleText += 'Ура! Кредит закрыт';
+	notificationDescText += 'Вы можете скачать подтверждение здесь';
+	$('.notification__title').text(notificationTitleText);
+	$('.notification__desc').text(notificationDescText);
+} else if (GET.date) {
+	$('.row__new-notification-payment').show();
+	notificationTitleText += 'Новый срок кредита';
+	notificationDescText += 'Окончательный перерасчёт кредита произойдёт завтра.';
+	$('.notification__title').text(notificationTitleText);
+	$('.notification__desc').text(notificationDescText);
+	$('.from-to__to ').text(data.creditDurationMonths + ' ' + declOfNum(data.creditDurationMonths, ['месяц', 'месяца', 'месяцев']))
+}

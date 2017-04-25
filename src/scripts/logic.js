@@ -1,12 +1,14 @@
+/* global device */
+
 $('.row__card, .row__new-payment, .row__new-credit-date, .row__new-credit-sum, .row__newDate').hide();
 
-$('input[type=radio][name=from]').change(function(event) {
+$('input[type=radio][name=from]').change(function() {
 	$('.row__schet, .row__card').toggle();
 	$('.input--card .input-text').focus();
 });
 
-$('input[type=radio][name=what-change]').change(function(event) {
-	if ($("#srok").is(':checked')) {
+$('input[type=radio][name=what-change]').change(function() {
+	if ($("#srok-" + device).is(':checked')) {
 		$('.row__new-payment, .row__new-credit-date').hide();
 		$('.row__credit-end').show();
 		$('.input--sum').blur();
@@ -17,33 +19,33 @@ $('input[type=radio][name=what-change]').change(function(event) {
 	}
 });
 
-$('input[type=radio][name=what-change-mobile]').change(function(event) {
+$('input[type=radio][name=what-change-mobile]').change(function() {
 	$('.row__credit-end, .row__dates, .row__new-payment, .row__new-credit-date, .row__new-payment-date').toggle();
 });
 
 $('.row__whatDate, .row__new-payment-date').hide();
 
-$('input[type=radio][name=from-mobile]').change(function(event) {
+$('input[type=radio][name=from-mobile]').change(function() {
 	$('.row__schet, .row__card').toggle();
 });
 
-$( ".input-text" ).focus(function() {
-	$( this ).next( ".input__desc" ).addClass( "input__desc--active" );
+$( '.input-text' ).focus(function() {
+	$( this ).next( '.input__desc' ).addClass( 'input__desc--active' );
 });
 
 $('.overlay, .popup__close').click(function () {
 	$('.popup').removeClass('popup--active');
 	$('.overlay').removeClass('overlay--active');
-})
+});
 
-$( ".input-text" ).blur(function() {
+$( '.input-text' ).blur(function() {
 	var inputText = $(this).val();
 	if (inputText.length == 0) {
-		$( this ).next( ".input__desc" ).removeClass( "input__desc--active" );
+		$( this ).next( '.input__desc' ).removeClass( 'input__desc--active' );
 	}
 });
 
-$(".add .input--sum, .payment .input--sum").keyup(function () {
+$('.add .input--sum, .payment .input--sum').keyup(function () {
 	var letters = $(this).val().length;
 	if (letters > 0) {
 		$('.button-submit').removeClass('button--disabled');

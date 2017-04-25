@@ -1,3 +1,5 @@
+/* global selectize:true, inputMask:true, device:true, $:true */
+
 $ = require('jquery');
 selectize = require('selectize');
 inputMask = require('jquery-mask-plugin');

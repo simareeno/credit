@@ -1,3 +1,5 @@
+/* global data:true, accounts:true, device */
+
 var monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня",
   "июля", "августа", "сентября", "октября", "ноября", "декабря"
 ];
@@ -17,7 +19,7 @@ function numberWithSpaces(x) {
 }
 
 function declOfNum(number, titles) {
-	cases = [2, 0, 1, 1, 1, 2];
+	var cases = [2, 0, 1, 1, 1, 2];
 	return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
 }
 
@@ -65,7 +67,7 @@ function getDateText(date, plusMonths, noYears) {
 		monthText += plusMonths;
 		if (monthText > 12) {
 			var newYears = Math.floor(monthText / 12);
-			var monthText = (monthText % 12);
+			monthText = (monthText % 12);
 		}
 		if (monthText == 12) { monthText = 0 }
 		creditRecieveDateText += monthNames[monthText];
@@ -174,7 +176,7 @@ $('.add .' + device + ' .button').click(function () {
 			}
 		}
 
-		if ($('#card').is(':checked')) {
+		if ($('#card-' + device).is(':checked')) {
 			if (!data.creditDebt == 0) {
 				data.creditDebt -= paymentAmount;
 				notificationData = 'add=' + paymentAmount;
@@ -246,7 +248,7 @@ $('.payment .' + device + ' .button').click(function () {
 		}
 
 
-		if ($('#card').is(':checked')) {
+		if ($('#card-' + device).is(':checked')) {
 			if (!data.creditDebt == 0) {
 				data.creditDebt -= paymentAmount;
 			}
@@ -279,12 +281,13 @@ $('.payment .' + device + ' .button').click(function () {
 // Закрыть кредит
 $('.close .button-submit').removeClass('button--disabled');
 $('.close .' + device + ' .button').click(function () {
+
 	if (!$(this).hasClass('button--disabled')) {
 		var paymentAmount = data.creditDebt;
 		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
 		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
 
-		if ($('#card').is(':checked')) {
+		if ($('#card-' + device).is(':checked')) {
 			data.creditDebt -= paymentAmount;
 			notificationData = 'close=' + paymentAmount;
 			activateSmsPopup();
@@ -542,7 +545,7 @@ $('.date .' + device + ' .button').click(function () {
 		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
 		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
 
-		if ($('#card').is(':checked')) {
+		if ($('#card-' + device).is(':checked')) {
 			if (!data.creditDebt == 0) {
 				data.creditDurationMonths -= conditionsMonths;
 				data.creditDebt -= paymentAmount;

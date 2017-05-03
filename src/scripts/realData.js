@@ -249,6 +249,7 @@ $('.payment .' + device + ' .button').click(function () {
 
 
 		if ($('#card-' + device).is(':checked')) {
+            notificationData = 'payment=1';
 			if (!data.creditDebt == 0) {
 				data.creditDebt -= paymentAmount;
 			}
@@ -262,6 +263,7 @@ $('.payment .' + device + ' .button').click(function () {
 			$('.row__schet .semi-title').addClass('semi-title--error').text('На счете недостаточно средств');
 			$('.selectize-input').addClass('selectize-input--error');
 		} else {
+            notificationData = 'payment=1';
 			if (!data.creditDebt == 0) {
 				data.creditDebt -= paymentAmount;
 			}
@@ -400,18 +402,16 @@ $('.button-submit').removeClass('button--disabled');
 var firstTab = $('.radio-months--conditions .radio-tab:first-child');
 var conditionsMonths = parseInt(firstTab.find('.radio-tab__title').text());
 var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replace(/\s+/g, ''));
+console.log(conditionsMonths);
 
 $('input[type=radio][name=month-' + device + ']').change(function() {
-    console.log('sss');
     inputValue = $(this).val();
 	if (inputValue == 'anotherTab-desktop' || inputValue == 'anotherTab-mobile') {
 		$('.row__whatDate').show();
 		$('.input--whatDate').focus();
 		$('.button-submit').addClass('button--disabled');
-        console.log('yes');
 		return;
 	} else {
-        console.log('no');
 		$('.row__whatDate').hide();
         $('.row__new-payment-date').hide();
 		$('.input--whatDate').blur();
@@ -440,13 +440,18 @@ $('.input--whatDate').keyup(function () {
 })
 
 $('.conditions .' + device + ' .button').click(function () {
+    if (isNaN(conditionsMonths)) {
+        conditionsMonths = parseInt($('.radio-months--conditions .radio-tab:first-child .radio-tab__title').text());
+    }
 	if (!$(this).hasClass('button--disabled')) {
-		if ($("#srok").is(':checked')) {
-			data.creditDurationMonths = conditionsMonths
+		if ($("#srok-" + device).is(':checked')) {
+            notificationData = 'conditionsSrok=1';
+			data.creditDurationMonths = conditionsMonths;
 			data.creditMonthPayment = Math.floor(data.creditDebt / conditionsMonths)
 			activateSmsPopup();
 			updateStorage();
 		} else {
+            notificationData = 'conditionsPayment=1';
 			payment = getConditionPayment();
 			var months = getConditionMonths(payment);
 			data.creditDurationMonths = months;
@@ -642,19 +647,19 @@ $('.row__new-notification-payment').hide();
 if (GET.vacation) {
 	var notificationVacationDays = GET.vacation;
 	notificationDescText += 'Следующий платёж ' + getDateText(data.creditNextPaymentDate, 0);
-	notificationTitleText += 'Кредитные каникулы на '+ notificationVacationDays + ' ';
+	notificationTitleText += 'Кредитные каникулы на&nbsp;' + notificationVacationDays + ' ';
 	notificationTitleText += declOfNum(notificationVacationDays, ['месяц', 'месяца', 'месяцев']) +' включены';
-	$('.notification__title').text(notificationTitleText);
+	$('.notification__title').text(notificationTitleText.replace(/&nbsp;/g,'\u00A0'));
 	$('.notification__desc').text(notificationDescText);
 } else if (GET.add) {
 	var notificationAddSum = GET.add;
 	var nextPayment = numberWithSpaces(calculateMonthPayment(data.creditDebt, data.creditDurationMonths));
-	notificationTitleText += 'Счет с кредитом пополнен на '+ numberWithSpaces(notificationAddSum) + ' ₽';
+	notificationTitleText += 'Счет с кредитом пополнен на&nbsp;'+ numberWithSpaces(notificationAddSum) + ' ₽';
 	notificationDescText += getDateText(data.creditNextPaymentDate, 0);
 	notificationDescText += ' со счёта будет списано ';
-	notificationDescText += nextPayment + ' ₽';
-	$('.notification__title').text(notificationTitleText);
-	$('.notification__desc').text(notificationDescText);
+	notificationDescText += nextPayment + '&nbsp;₽';
+	$('.notification__title').text(notificationTitleText.replace(/&nbsp;/g,'\u00A0'));
+	$('.notification__desc').text(notificationDescText.replace(/&nbsp;/g,'\u00A0'));
 } else if (GET.close) {
 	notificationTitleText += 'Ура! Кредит закрыт';
 	notificationDescText += 'Вы можете скачать подтверждение здесь';
@@ -667,4 +672,29 @@ if (GET.vacation) {
 	$('.notification__title').text(notificationTitleText);
 	$('.notification__desc').text(notificationDescText);
 	$('.from-to__to ').text(data.creditDurationMonths + ' ' + declOfNum(data.creditDurationMonths, ['месяц', 'месяца', 'месяцев']))
+} else if (GET.payment) {
+    notificationTitleText += 'Новая сумма платежа';
+    $('.row__new-notification-payment').show();
+    $('.from-to__to').text(numberWithSpaces(
+		calculateMonthPayment(data.creditDebt, data.creditDurationMonths)
+	) + ' ₽')
+	notificationDescText += 'Окончательный перерасчёт кредита произойдёт завтра.';
+	$('.notification__title').text(notificationTitleText);
+	$('.notification__desc').text(notificationDescText);
+} else if (GET.conditionsSrok) {
+    $('.row__new-notification-payment').show();
+    notificationTitleText += 'Новый срок кредита';
+    notificationDescText += 'Окончательный перерасчёт кредита произойдёт завтра.';
+    $('.notification__title').text(notificationTitleText);
+    $('.notification__desc').text(notificationDescText);
+    $('.from-to__to ').text(data.creditDurationMonths + ' ' + declOfNum(data.creditDurationMonths, ['месяц', 'месяца', 'месяцев']))
+} else if (GET.conditionsPayment) {
+    notificationTitleText += 'Новая сумма платежа';
+    $('.row__new-notification-payment').show();
+    $('.from-to__to').text(numberWithSpaces(
+		calculateMonthPayment(data.creditDebt, data.creditDurationMonths)
+	) + ' ₽')
+	notificationDescText += 'Окончательный перерасчёт кредита произойдёт завтра.';
+	$('.notification__title').text(notificationTitleText);
+	$('.notification__desc').text(notificationDescText);
 }

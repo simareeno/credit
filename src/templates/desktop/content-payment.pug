@@ -2,7 +2,7 @@
 	.title #{title}
 	
 	form#main-form
-		include ../sum.pug
+		include ../sum-pogashenie.pug
 			
 		.row.row__input.row__form
 			.semi-title Новый ежемесячный платёж
@@ -11,5 +11,6 @@
 				.from-to__arrow →
 				.from-to__to 
 		- var buttonLabel = 'Уменьшить платеж'
+		- var fromLabel = 'Откуда погасить'
 		include from.pug
 		include ../form-end.pug

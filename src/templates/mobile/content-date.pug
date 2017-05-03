@@ -6,7 +6,7 @@ form#main-form-mobile
 		.semi-title На какой срок уменьшить кредит
 		.radio.radio-months.radio-months--date
 			.radio__wrapper
-	.row.row__input.row__form.row__whatDate
+	.row.row__input.row__form.row__newDate
 		.semi-title На сколько месяцев уменьшить кредит
 		input(type='text',pattern="[0-9]*",inputmode="numeric", form='main-form').input-text.input--newDate
 	.row.row__input.row__form.row__new-credit-sum
@@ -14,5 +14,6 @@ form#main-form-mobile
 		.row__text 
 	.wrapper
 		- var buttonLabel = 'Уменьшить срок'
+		- var fromLabel = 'Откуда погасить'
 		include from.pug
 		include ../form-end.pug

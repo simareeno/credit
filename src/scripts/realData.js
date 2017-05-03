@@ -213,7 +213,7 @@ currentMonthPaymentBlock.text(numberWithSpaces(calculateMonthPayment(data.credit
 futureMonthPaymentBlock.text(numberWithSpaces(calculateMonthPayment(data.creditDebt, data.creditDurationMonths) + ' ₽'))
 function getPayment() {
 	var inputSum = parseInt($('.payment .' + device + ' .input--sum').val().replace(/\s+/g, ''));
-	var payment = Math.floor((data.creditDebt - inputSum) / 12);
+	var payment = Math.floor((data.creditDebt - inputSum) / data.creditDurationMonths);
 	if (payment < 0) {
 		return 0;
 	}
@@ -402,14 +402,18 @@ var conditionsMonths = parseInt(firstTab.find('.radio-tab__title').text());
 var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replace(/\s+/g, ''));
 
 $('input[type=radio][name=month-' + device + ']').change(function() {
-	inputValue = $(this).val();
+    console.log('sss');
+    inputValue = $(this).val();
 	if (inputValue == 'anotherTab-desktop' || inputValue == 'anotherTab-mobile') {
 		$('.row__whatDate').show();
 		$('.input--whatDate').focus();
 		$('.button-submit').addClass('button--disabled');
+        console.log('yes');
 		return;
 	} else {
+        console.log('no');
 		$('.row__whatDate').hide();
+        $('.row__new-payment-date').hide();
 		$('.input--whatDate').blur();
 		$('.button-submit').removeClass('button--disabled');
 		conditionsMonths = parseInt($(this).parent().find('.radio-tab__title').text());
@@ -427,9 +431,9 @@ $('.input--whatDate').keyup(function () {
 		$('.row__new-payment-date').hide();
 		$('.button-submit').addClass('button--disabled');
 	}
-	if (conditionsMonths >= 61) {
-		$(this).val(60);
-	}
+	// if (conditionsMonths >= 61) {
+	// 	$(this).val(60);
+	// }
 	conditionsPayment = Math.floor(data.creditDebt / conditionsMonths);
 	var conditionsNewPayment = numberWithSpaces(conditionsPayment) + ' ₽';
 	$('.row__new-payment-date .row__text').text(conditionsNewPayment);
@@ -503,7 +507,8 @@ var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replac
 $('input[type=radio][name=month-' + device + ']').change(function() {
 	inputValue = $(this).val();
 	if (inputValue == 'anotherTab-desktop' || inputValue == 'anotherTab-mobile') {
-		$('.row__newDate').show();
+        console.log('ss');
+        $('.row__newDate').show();
 		$('.input--newDate').focus();
 		$('.button-submit').addClass('button--disabled');
 		return;

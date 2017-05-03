@@ -3,6 +3,7 @@
 	.title-sum <span class="creditDebt"></span> ₽ 
 	
 	form#main-form
-		include from.pug
+		- var fromLabel = 'Откуда погасить'
 		- var buttonLabel = 'Закрыть кредит'
+		include from.pug
 		include ../parts/form-end-clear.pug

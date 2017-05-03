@@ -424,6 +424,28 @@ input.input-radio {
 		display: inline-block;
 		top: -5px;
 	}
+
+	&__cards {
+		font-size: 13px;
+		color: fade(@primary, 50%);
+		top: -1px;
+		position: relative;
+		display: inline-block;
+		margin-top: -12px;
+		height: 12px;
+
+		&:before {
+			content: '';
+			width: 32px;
+			height: 24px;
+			transform: scale(.5) translate(0px, 2px);
+			transform-origin: bottom right;
+			display: inline-block;
+			background-size: cover;
+			margin-right: 2px;
+			background: url(../images/credit-card.png);
+		}
+	}
 }
 
 .desc {

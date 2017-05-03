@@ -507,7 +507,6 @@ var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replac
 $('input[type=radio][name=month-' + device + ']').change(function() {
 	inputValue = $(this).val();
 	if (inputValue == 'anotherTab-desktop' || inputValue == 'anotherTab-mobile') {
-        console.log('ss');
         $('.row__newDate').show();
 		$('.input--newDate').focus();
 		$('.button-submit').addClass('button--disabled');

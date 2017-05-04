@@ -47,6 +47,37 @@
 	font-size: 17px;
 }
 
-.row__newDate, .row__new-credit-sum {
-	margin-left: 12px;
+.desktop .row__newDate {
+	.columnS(4);
+	float: left;
+	margin-right: @gutterS;
+
+	@media @desktopBig {
+		.columnBig(4);
+		margin-right: @gutterBig;
+	}
+
+	@media @mobile {
+		width: 100%;
+	}
+}
+
+.input--newDate {
+	.columnS(3);
+
+	@media @desktopBig {
+		.columnBig(3);
+	}
+
+	@media @mobile {
+		width: 100%;
+	}
+}
+
+.mobile .row--reduce .semi-title {
+	padding-left: 12px;
+}
+
+.mobile .row--reduce .radio__wrapper .radio-tab:first-child {
+	padding-left: 12px;
 }

@@ -402,7 +402,6 @@ $('.button-submit').removeClass('button--disabled');
 var firstTab = $('.radio-months--conditions .radio-tab:first-child');
 var conditionsMonths = parseInt(firstTab.find('.radio-tab__title').text());
 var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replace(/\s+/g, ''));
-console.log(conditionsMonths);
 
 $('input[type=radio][name=month-' + device + ']').change(function() {
     inputValue = $(this).val();
@@ -436,7 +435,15 @@ $('.input--whatDate').keyup(function () {
 	// }
 	conditionsPayment = Math.floor(data.creditDebt / conditionsMonths);
 	var conditionsNewPayment = numberWithSpaces(conditionsPayment) + ' ₽';
-	$('.row__new-payment-date .row__text').text(conditionsNewPayment);
+	$('.row__new-payment-date .from-to__to').text(conditionsNewPayment);
+    $('.row__new-payment-date .from-to__from').text(numberWithSpaces(Math.floor(data.creditMonthPayment))+ ' ₽');
+    setTimeout(function () {
+		if (thisInput.val().length > 0) {
+			$('.row__new-payment-date .from-to').addClass('from-to--active');
+		} else {
+			$('.row__new-payment-date .from-to').removeClass('from-to--active');
+		}
+	}, 200);
 })
 
 $('.conditions .' + device + ' .button').click(function () {
@@ -467,6 +474,16 @@ $('.conditions .' + device + ' .button').click(function () {
 
 var monthsRadio = $('.' + device + ' .radio-months--date .radio__wrapper');
 var anotherTab = '';
+var newDate;
+$('.row__new-credit-left .from-to__from').text(data.creditDurationMonths + ' ' + declOfNum(data.creditDurationMonths, ['месяц', 'месяца', 'месяцев']));
+
+function updateMonths(months) {
+    newDate = data.creditDurationMonths - months;
+    if (isNaN(newDate)) {
+        newDate = 0;
+    }
+    $('.row__new-credit-left .from-to__to').text(newDate + ' ' + declOfNum(newDate, ['месяц', 'месяца', 'месяцев']));
+}
 
 for (var i = 1; i < 5; i++) {
 	var currentMonth;
@@ -493,6 +510,10 @@ for (var i = 1; i < 5; i++) {
 	tab += ('<span class="radio-tab__desc">'+ currentSum +' ₽</span>');
 	tab += ('</label>');
 	tab += ('</div>');
+    if (i == 1) {
+        $('.row__new-credit-sum .row__text').text(currentSum + " ₽");
+        updateMonths(currentMonth);
+    }
 	monthsRadio.append(tab);
 }
 
@@ -527,6 +548,8 @@ $('input[type=radio][name=month-' + device + ']').change(function() {
 			conditionsMonths = parseInt(currentTab);
 		}
 		conditionsPayment = parseInt($(this).parent().find('.radio-tab__desc').text().replace(/\s+/g, ''));
+        $('.row__new-credit-sum .row__text').text(numberWithSpaces(conditionsPayment) + " ₽");
+        updateMonths(conditionsMonths);
 	}
 });
 
@@ -535,17 +558,20 @@ $('.input--newDate').keyup(function () {
 	conditionsMonths = parseInt(thisInput.val());
 	if (conditionsMonths > data.creditDurationMonths) {
 		$(this).val(data.creditDurationMonths);
+        conditionsMonths = data.creditDurationMonths;
 	}
 	if (thisInput.val() > 0) {
-		$('.row__new-credit-sum').show();
 		$('.button-submit').removeClass('button--disabled');
 	} else {
-		$('.row__new-credit-sum').hide();
 		$('.button-submit').addClass('button--disabled');
 	}
 	conditionsPayment = Math.ceil(data.creditMonthPayment * conditionsMonths);
+    if (isNaN(conditionsPayment)) {
+        conditionsPayment = 0;
+    }
 	var conditionsNewPayment = numberWithSpaces(conditionsPayment) + ' ₽';
 	$('.row__new-credit-sum .row__text').text(conditionsNewPayment);
+    updateMonths(conditionsMonths);
 })
 
 $('.date .' + device + ' .button').click(function () {

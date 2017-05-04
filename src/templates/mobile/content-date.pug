@@ -2,17 +2,23 @@ form#main-form-mobile
 	.wrapper
 		.title-desc Чтобы срок кредита уменьшился, досрочно погасите его на сумму ежемесячного платежа или больше.
 
-	.row.row__input.row__form.row__dates
+	.row.row__input.row__form.row--reduce
 		.semi-title На какой срок уменьшить кредит
 		.radio.radio-months.radio-months--date
 			.radio__wrapper
-	.row.row__input.row__form.row__newDate
-		.semi-title На сколько месяцев уменьшить кредит
-		input(type='text',pattern="[0-9]*",inputmode="numeric", form='main-form').input-text.input--newDate
-	.row.row__input.row__form.row__new-credit-sum
-		.semi-title Нужно заплатить
-		.row__text 
 	.wrapper
+		.row.row__input.row__form.row__newDate
+			.semi-title Укажите количество месяцев
+			input(type='text',pattern="[0-9]*",inputmode="numeric", form='main-form').input-text.input--newDate
+		.row.row__input.row__form.row__new-credit-sum
+			.semi-title Сумма для погашения
+			.row__text
+		.row.row__input.row__form.row__new-credit-left
+			.semi-title Останется до конца кредита
+			.from-to.from-to--active
+				.from-to__from
+				.from-to__arrow →
+				.from-to__to 
 		- var buttonLabel = 'Уменьшить срок'
 		- var fromLabel = 'Откуда погасить'
 		include from.pug

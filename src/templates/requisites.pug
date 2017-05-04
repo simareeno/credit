@@ -1,0 +1,32 @@
+- var title = 'Кредит наличными'
+- var parentTitle = ''
+
+include head.pug
+body.requisites
+	.desktop
+		include desktop/header.pug
+		.wrapper
+			include desktop/left.pug
+			include desktop/right.pug
+			.right
+				.title #{title}
+
+				.tabs
+					.tabs__tab.tab
+						a(href="/") О кредите
+					.tabs__tab.tab
+						a(href="/graph.html") График платежей
+					.tabs__tab.tab 
+						a(href="/statement.html") Выписка
+					.tabs__tab.tab.tab--active
+						a(href="/requisites.html") Реквизиты
+					.tabs__line
+					.tabs__current.tabs__current--4
+
+				.row
+					img(src="../images/requisites-desktop.png").fake-page
+	.mobile
+		- var title = 'Реквизиты'
+		include mobile/header.pug
+		img(src="../images/requisites-mobile.png").fake-page
+include desktop/footer.pug

@@ -19,13 +19,15 @@
 			.semi-title Количество месяцев кредита
 			input(type='text',pattern="[0-9]*",inputmode="numeric", form='main-form').input-text.input--whatDate
 		.row.row__input.row__form.row__new-payment-date
-			.semi-title Как изменится платеж
-			.row__text 
+			.semi-title Новый ежемесячный платёж
+			.from-to
+				.from-to__from
+				.from-to__arrow →
+				.from-to__to
 		.row.row__input.row__form.row__new-payment
 			.semi-title Новый ежемесячный платёж
 			input(type='text',placeholder='0', form='main-form').input-text.input--sum
-			.row__desc Сейчас ежемесячный платёж — <span class="creditMonthPayment"></span>,00 ₽. Платёж не может быть ниже <span class="creditMonthMinPayment"></span> ₽ и выше задолжности по кредиту.
-
+			.row__desc Сейчас ежемесячный платёж — <span class="creditMonthPayment"></span>,00 ₽.
 		.row.row__input.row__form.row__new-credit-date
 			.semi-title Как изменится срок кредита
 			.from-to

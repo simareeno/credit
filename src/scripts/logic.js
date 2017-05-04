@@ -1,6 +1,6 @@
 /* global device */
 
-$('.row__card, .row__new-payment, .row__new-credit-date, .row__new-credit-sum, .row__newDate').hide();
+$('.row__card, .row__new-payment, .row__new-credit-date, .row__newDate').hide();
 
 $('input[type=radio][name=from]').change(function() {
 	$('.row__schet, .row__card').toggle();
@@ -58,3 +58,9 @@ $('.notification').addClass('notification--active');
 $('.notification__close').click(function () {
 	$('.notification').removeClass('notification--active');
 })
+
+var images = $('.desktop .fake-page');
+    images.each(function(i) {
+      $(this).width($(this).width() / 2);
+	  $(this).height($(this).height() / 2);
+    });

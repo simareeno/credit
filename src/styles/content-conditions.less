@@ -1,3 +1,28 @@
-.row__whatDate, .row__new-payment-date {
+.mobile .row__whatDate, .mobile .row__new-payment-date {
 	margin-left: 12px;
+}
+
+.conditions .radio-months--conditions .input-radio:checked~label:after {
+	content: "Текущие условия";
+	display: block;
+	position: absolute;
+	bottom: -22px;
+	font-weight: 400;
+	color: #0b1f35;
+	opacity: .5;
+	left: 9px;
+	font-size: 15px;
+	font-style: italic;
+}
+
+.conditions .radio-months--conditions .input-radio~label.anotherTabLabel:after {
+	display: none!important;
+}
+
+.radio-months--conditions {
+	height: 93px;
+}
+
+.conditions .row__whatDate {
+	margin-top: 25px;
 }

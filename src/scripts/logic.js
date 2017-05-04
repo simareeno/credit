@@ -58,9 +58,3 @@ $('.notification').addClass('notification--active');
 $('.notification__close').click(function () {
 	$('.notification').removeClass('notification--active');
 })
-
-var images = $('.desktop .fake-page');
-    images.each(function(i) {
-      $(this).width($(this).width() / 2);
-	  $(this).height($(this).height() / 2);
-    });

@@ -1,6 +1,6 @@
 /* global device */
 
-$('.row__card, .row__new-payment, .row__new-credit-date, .row__newDate').hide();
+$('.row__card, .row__new-payment, .row__new-credit-date, .row__newDate, .row__whatDate, .row__new-payment-date').hide();
 
 $('input[type=radio][name=from]').change(function() {
 	$('.row__schet, .row__card').toggle();
@@ -22,8 +22,6 @@ $('input[type=radio][name=what-change]').change(function() {
 $('input[type=radio][name=what-change-mobile]').change(function() {
 	$('.row__credit-end, .row__dates, .row__new-payment, .row__new-credit-date, .row__new-payment-date').toggle();
 });
-
-$('.row__whatDate, .row__new-payment-date').hide();
 
 $('input[type=radio][name=from-mobile]').change(function() {
 	$('.row__schet, .row__card').toggle();
@@ -52,9 +50,4 @@ $('.add .input--sum, .payment .input--sum').keyup(function () {
 	} else if (letters == 0) {
 		$('.button-submit').addClass('button--disabled');
 	}
-})
-
-$('.notification').addClass('notification--active');
-$('.notification__close').click(function () {
-	$('.notification').removeClass('notification--active');
 })

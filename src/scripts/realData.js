@@ -557,6 +557,7 @@ $('input[type=radio][name=month-' + device + ']').change(function() {
 	if (inputValue == 'anotherTab-desktop' || inputValue == 'anotherTab-mobile') {
         $('.row__newDate').show();
 		$('.input--newDate').focus();
+        $('.row__new-credit-sum').hide();
 		$('.button-submit').addClass('button--disabled');
 		return;
 	} else {
@@ -583,8 +584,10 @@ $('.input--newDate').keyup(function () {
         conditionsMonths = data.creditDurationMonths;
 	}
 	if (thisInput.val() > 0) {
+        $('.row__new-credit-sum').show();
 		$('.button-submit').removeClass('button--disabled');
 	} else {
+        $('.row__new-credit-sum').hide();
 		$('.button-submit').addClass('button--disabled');
 	}
 	conditionsPayment = Math.ceil(data.creditMonthPayment * conditionsMonths);

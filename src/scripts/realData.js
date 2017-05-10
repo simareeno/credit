@@ -5,9 +5,12 @@ var monthNames = ["января", "февраля", "марта", "апреля"
 ];
 var notificationData;
 
-function setData(value, spaces) {
+function setData(value, spaces, reducePercent) {
 
 	var myString = data[value];
+    if (reducePercent) {
+        myString -= myString * reducePercent;
+    }
 	if (spaces) {
 		return $('.'+ value).text(numberWithSpaces(myString));
 	}
@@ -96,7 +99,8 @@ function updateData() {
 	setData('creditDurationMonths');
 	setData('creditRate');
 	setData('creditLimit', true);
-	setData('creditDebt', true);
+	setData('creditDebt', true, 0.05);
+    $('.creditDebtFull').text(numberWithSpaces(data.creditDebt));
 	$('.creditNextPayment').text(numberWithSpaces(
 		calculateMonthPayment(data.creditDebt, data.creditDurationMonths)
 	));
@@ -290,7 +294,7 @@ $('.close .button-submit').removeClass('button--disabled');
 $('.close .' + device + ' .button').click(function () {
 
 	if (!$(this).hasClass('button--disabled')) {
-		var paymentAmount = data.creditDebt;
+		var paymentAmount = data.creditDebt - (data.creditDebt * 0.05);
 		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
 		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
 
@@ -307,7 +311,7 @@ $('.close .' + device + ' .button').click(function () {
 			$('.row__schet .semi-title').addClass('semi-title--error').text('На счете недостаточно средств');
 			$('.selectize-input').addClass('selectize-input--error');
 		} else {
-			data.creditDebt -= paymentAmount;
+			data.creditDebt = 0;
 			notificationData = 'close=' + paymentAmount;
             data.seenNotification = true;
 			if (chosenAccount == 4576) {
@@ -409,7 +413,8 @@ monthsRadio.append(anotherTab);
 var firstTab = $('.radio-months--conditions .radio-tab:first-child');
 var conditionsMonths = parseInt(firstTab.find('.radio-tab__title').text());
 var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replace(/\s+/g, ''));
-$('.conditions .button-submit').addClass('button--disabled');
+$('.conditions .button-submit').addClass('button--disable');
+$('.conditions .button-submit').removeClass('button--disabled');
 $('.row__new-payment-date .from-to__to').text(conditionsPayment);
 $('.row__new-payment-date .from-to__from').text(numberWithSpaces(Math.floor(data.creditMonthPayment))+ ' ₽');
 

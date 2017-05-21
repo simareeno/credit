@@ -9,9 +9,14 @@
 			label(for='card-mobile') С карты
 .row.row__input.row__form.row__schet
 	.semi-title С какого счёта
-	select.select
-		option(selected=true) 1
-		option 2
+	case selectMini
+		when 1
+			select.select.select--mini
+				option(selected=true) 1
+		default
+			select.select.select--standard
+				option(selected=true) 1
+				option 2
 .row.row__input.row__form.row__card
 	.semi-title Любая карта любого банка
 	.card
@@ -27,6 +32,3 @@
 			.input.input--cvc
 				input(type='text',pattern="[0-9]*",inputmode="numeric").input-text
 				.input__desc CVC
-		
-
-		

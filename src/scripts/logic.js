@@ -12,10 +12,15 @@ $('input[type=radio][name=what-change]').change(function() {
 		$('.row__new-payment, .row__new-credit-date').hide();
 		$('.row__credit-end').show();
 		$('.input--sum').blur();
+		$('.conditions .button-submit').removeClass('button--disable');
 	} else {
 		$('.row__new-payment, .row__new-credit-date').show();
 		$('.row__credit-end, .row__new-payment-date, .row__whatDate').hide();
 		$('.input--sum').focus();
+		var conditionsInputValue = parseInt($(".input--sum").val());
+		if (isNaN(conditionsInputValue)) {
+			$('.conditions .button-submit').addClass('button--disable');
+		}
 	}
 });
 

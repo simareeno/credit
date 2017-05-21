@@ -108,7 +108,7 @@ function updateData() {
 		calculateMonthPayment(data.creditDebt, data.creditDurationMonths)
 	));
 	$('.currentAccountSum').text(numberWithSpaces(currentAccountSum));
-	$('.currentAccountNumber').text(numberWithSpaces(currentAccountNumber));
+	$('.currentAccountNumber').text(currentAccountNumber);
 	updateCreditDates();
 }
 
@@ -395,7 +395,7 @@ for (var i = 1; i < 5; i++) {
 	tab += ('>')
 	tab += ('<label for="month' + i + '-' + device +'">');
 	tab += ('<span class="radio-tab__title">'+ currentMonth + ' ' + declOfNum(currentMonth, ['месяц', 'месяца', 'месяцев']) + '</span>');
-	tab += ('<span class="radio-tab__desc">'+ currentSum +' ₽</span>');
+	tab += ('<span class="radio-tab__desc">'+ currentSum +' ₽/мес.</span>');
 	tab += ('</label>');
 	tab += ('</div>');
 	monthsRadio.append(tab);
@@ -413,7 +413,6 @@ monthsRadio.append(anotherTab);
 var firstTab = $('.radio-months--conditions .radio-tab:first-child');
 var conditionsMonths = parseInt(firstTab.find('.radio-tab__title').text());
 var conditionsPayment = parseInt(firstTab.find('.radio-tab__desc').text().replace(/\s+/g, ''));
-$('.conditions .button-submit').addClass('button--disable');
 $('.conditions .button-submit').removeClass('button--disabled');
 $('.row__new-payment-date .from-to__to').text(conditionsPayment);
 $('.row__new-payment-date .from-to__from').text(numberWithSpaces(Math.floor(data.creditMonthPayment))+ ' ₽');
@@ -459,7 +458,7 @@ $('.input--whatDate').keyup(function () {
 	// 	$(this).val(60);
 	// }
 	conditionsPayment = Math.floor(data.creditDebt / conditionsMonths);
-	var conditionsNewPayment = numberWithSpaces(conditionsPayment) + ' ₽';
+	var conditionsNewPayment = numberWithSpaces(conditionsPayment) + ' ₽/мес.';
 	$('.row__new-payment-date .from-to__to').text(conditionsNewPayment);
     setTimeout(function () {
 		if (thisInput.val().length > 0) {
@@ -563,12 +562,13 @@ $('input[type=radio][name=month-' + device + ']').change(function() {
         $('.row__newDate').show();
 		$('.input--newDate').focus();
         $('.row__new-credit-sum').hide();
-		$('.button-submit').addClass('button--disabled');
+		$('.date .button-submit').addClass('button--disabled');
+        $('.from-to').removeClass('from-to--active');
 		return;
 	} else {
 		$('.row__newDate').hide();
 		$('.input--newDate').blur();
-		$('.button-submit').removeClass('button--disabled');
+		$('.date .button-submit').removeClass('button--disabled');
 		var currentTab = $(this).parent().find('.radio-tab__title').text();
 		if (currentTab == ' 1 год ') {
 			conditionsMonths = 12;
@@ -588,8 +588,10 @@ $('.input--newDate').keyup(function () {
 		$(this).val(data.creditDurationMonths);
         conditionsMonths = data.creditDurationMonths;
 	}
+    console.log(thisInput.val());
 	if (thisInput.val() > 0) {
         $('.row__new-credit-sum').show();
+        $('.from-to').addClass('from-to--active');
 		$('.button-submit').removeClass('button--disabled');
 	} else {
         $('.row__new-credit-sum').hide();

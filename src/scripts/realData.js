@@ -144,7 +144,7 @@ var userData = {
 };
 
 function updateStorage() {
-	data.accounts = accounts;
+	// data.accounts = accounts;
 	localStorage.setItem('user', JSON.stringify(data));
 	updateData();
 }
@@ -169,6 +169,7 @@ updateData();
 $(document).keyup(function (e) {
 	if (e.shiftKey && e.keyCode == 8) {
 			data = userData;
+			currentAccountSum = data.accounts[0].accountSum;
 			updateStorage();
 	}
 })
@@ -179,22 +180,11 @@ $('.add .' + device + ' .button').click(function () {
 		var paymentAmount = parseInt($('.' + device + ' .input--sum').val().replace(/\s+/g, ''));
 		var currentAccountSum = parseInt($('.' + device + ' .selectize-input .number__val').text().replace(/\s+/g, ''))
 		var chosenAccount = $('.' + device + ' .selectize-input .accountNumber').text();
-		var surplus = 0;
-
-		if (paymentAmount > data.creditDebt) {
-			surplus = paymentAmount - data.creditDebt;
-			if (data.creditDebt !== 0) {
-				paymentAmount = data.creditDebt;
-			}
-		}
 
 		if ($('#card-' + device).is(':checked')) {
-			if (!data.creditDebt == 0) {
-				data.creditDebt -= paymentAmount;
-				notificationData = 'add=' + paymentAmount;
-				data.seenNotification = true;
-			}
-			data.accounts[0].accountSum += surplus
+			data.accounts[0].accountSum += paymentAmount;
+			notificationData = 'add=' + paymentAmount;
+			data.seenNotification = true;
 			activateSmsPopup();
 			updateStorage();
 			return;
@@ -204,16 +194,10 @@ $('.add .' + device + ' .button').click(function () {
 			$('.row__schet .semi-title').addClass('semi-title--error').text('На счете недостаточно средств');
 			$('.selectize-input').addClass('selectize-input--error');
 		} else {
-			data.creditDebt -= paymentAmount;
+			data.accounts[1].accountSum -= paymentAmount;
+			data.accounts[0].accountSum += paymentAmount;
 			notificationData = 'add=' + paymentAmount;
 			data.seenNotification = true;
-			if (chosenAccount == 2191) {
-				data.accounts[1].accountSum -= paymentAmount
-				data.accounts[1].accountSum += surplus
-			} else {
-				data.accounts[0].accountSum -= paymentAmount
-				data.accounts[0].accountSum += surplus
-			}
 			activateSmsPopup();
 			updateStorage();
 		}
@@ -595,7 +579,7 @@ $('.input--newDate').keyup(function () {
 		$(this).val(data.creditDurationMonths);
 		conditionsMonths = data.creditDurationMonths;
 	}
-	console.log(thisInput.val());
+
 	if (thisInput.val() > 0) {
 		$('.row__new-credit-sum').show();
 		$('.from-to').addClass('from-to--active');
@@ -769,7 +753,7 @@ if (GET.vacation) {
 }
 
 if (data.seenNotification) {
-	console.log(data.seenNotification);
+
 	$('.notification').addClass('notification--active');
 	$('.notification__close').click(function () {
 		$('.notification').removeClass('notification--active');

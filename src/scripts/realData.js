@@ -150,7 +150,7 @@ function updateStorage() {
 }
 
 // Если данных нет, загружаем
-if (localStorage.length == 0) {
+if (!localStorage.user) {
 	localStorage.setItem('user', JSON.stringify(userData))
 }
 
@@ -167,7 +167,9 @@ var currentAccountSum = currentAccount.accountSum;
 updateData();
 
 $(document).keyup(function (e) {
+    console.log(e.keyCode);
 	if (e.shiftKey && e.keyCode == 8) {
+            console.log('truru');
 			data = userData;
 			currentAccountSum = data.accounts[0].accountSum;
 			updateStorage();

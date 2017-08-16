@@ -54,7 +54,7 @@ gulp.task('less', function() {
 		.pipe(sourceMaps.init())
 		.pipe(less())
 		.pipe(postCss(processors))
-		.pipe(concat('styles.css'))
+		.pipe(concat('styles2.css'))
 		.pipe(sourceMaps.write())
 		.pipe(gulp.dest(join(DEST, 'styles')));
 });

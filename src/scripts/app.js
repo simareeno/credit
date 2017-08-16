@@ -7,7 +7,7 @@ var FastClick = require('fastclick');
 
 FastClick.attach(document.body);
 
-if (window.innerWidth > 1024) {
+if (window.innerWidth >= 1024) {
 	device = 'desktop';
 } else {
 	device = 'mobile';
